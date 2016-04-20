@@ -12,10 +12,10 @@
 </head>
 <body>
 
-    @include('layouts.nav')
+@include('layouts.nav')
 
-    @yield('content')
+@yield('content')
 
-    <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
 </body>
 </html>
