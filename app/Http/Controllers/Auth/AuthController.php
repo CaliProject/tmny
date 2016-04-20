@@ -6,9 +6,8 @@ use Validator;
 use App\Traits\AuthenticatesUsers;
 use App\Http\Controllers\Controller;
 
-class AuthController extends Controller
-{
-    
+class AuthController extends Controller {
+
     use AuthenticatesUsers;
 
     /**
@@ -16,15 +15,15 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/admin';
 
     /**
      * Username column.
-     * 
+     *
      * @var string
      */
     protected $username = 'username';
-    
+
     /**
      * Create a new authentication controller instance.
      *
