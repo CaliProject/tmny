@@ -18,4 +18,7 @@ Route::post('login', 'Auth\AuthController@login');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/', 'AdminController@showIndex');
+    Route::get('test',function(){
+       return "test";
+    });
 });
