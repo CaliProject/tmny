@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Configuration;
 use App\User;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Hash;
 
@@ -41,5 +42,40 @@ class AdminController extends Controller {
                 'message' => '原密码输入错误'
             ]);
         }
+    }
+
+    public function showAbout(){
+        $abouts = Configuration::where('key','aboutContent')->value('data');
+        return view('admin.about.home',compact('abouts'));
+    }
+
+    public function editAbout(){
+
+    }
+
+    public function showAddAbout(){
+        return view('admin.about.add');
+    }
+
+    public function addAbout(Request $request){
+        $abouts = Configuration::where('key','aboutContent')->value('data');
+        if(!$abouts){
+            $abouts = [];
+            $record = true;
+        }else{
+            $record = false;
+        }
+        array_push($abouts,["header" => $request->header,"content" => $request->content]);
+        if($record){
+            Configuration::create([
+                'key' => 'aboutContent',
+                'data' => json_encode($abouts),
+            ]);
+        }else{
+            Configuration::where('key','aboutContent')->update([
+                'data' => json_encode($abouts),
+            ]);
+        }
+        return $this->showAbout();
     }
 }

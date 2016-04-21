@@ -15,11 +15,11 @@
                             <label class="col-md-3 control-label">原密码</label>
                             <div class="col-md-6">
                                 <input type="password" class="form-control" name="old_password">
-                                @if($status == 'old_error')
-                                    <div class="help-block">
-                                        <span>{{ $message }}</span>
-                                    </div>
-                                @endif
+                                {{--@if($status == 'old_error')--}}
+                                    {{--<div class="help-block">--}}
+                                        {{--<span>{{ $message }}</span>--}}
+                                    {{--</div>--}}
+                                {{--@endif--}}
                             </div>
                         </div>
                         <div class="form-group">
@@ -32,11 +32,11 @@
                             <label class="col-md-3 control-label">确认新的密码</label>
                             <div class="col-md-6">
                                 <input type="password" class="form-control" name="password_confirmation">
-                                @if($status == 'new_error')
-                                <div class="help-block">
-                                    <span>{{ $message }}</span>
-                                </div>
-                                @endif
+                                {{--@if($status == 'new_error')--}}
+                                {{--<div class="help-block">--}}
+                                    {{--<span>{{ $message }}</span>--}}
+                                {{--</div>--}}
+                                {{--@endif--}}
                             </div>
                         </div>
                         <div class="form-group">
