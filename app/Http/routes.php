@@ -19,13 +19,18 @@ Route::get('logout', 'Auth\AuthController@logout');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/', 'AdminController@showIndex');
-    Route::get('updatePassword','AdminController@showUpdatePassword');
-    Route::post('updatePassword','AdminController@updatePassword');
-    Route::get('about','AdminController@showAbout');
-    Route::get('editAbout/{id}','AdminController@showEditAbout');
-    Route::post('editAbout/{id}','AdminController@editAbout');
-    Route::get('editAboutHeader','AdminController@showAboutHeader');
-    Route::get('deleteAbout/{id}','AdminController@deleteAbout');
-    Route::get('addAbout','AdminController@showAddAbout');
-    Route::post('addAbout','AdminController@addAbout');
+    Route::get('password', 'AdminController@showUpdatePassword');
+    Route::patch('password', 'AdminController@updatePassword');
+
+    Route::group([
+        'prefix' => 'about'
+    ], function () {
+        Route::get('/', 'AdminController@showAbout');
+        Route::get('{id}', 'AdminController@showEditAbout');
+        Route::post('{id}', 'AdminController@editAbout');
+        Route::delete('{id}', 'AdminController@deleteAbout');
+        Route::get('editAboutHeader', 'AdminController@showAboutHeader');
+        Route::get('add', 'AdminController@showAddAbout');
+        Route::post('add', 'AdminController@addAbout');
+    });
 });

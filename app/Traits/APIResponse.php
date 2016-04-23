@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Traits;
 
 trait APIResponse {
 
@@ -66,5 +66,3 @@ trait APIResponse {
         );
     }
 }
-
-?>
