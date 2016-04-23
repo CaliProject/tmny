@@ -14,14 +14,15 @@
 <body>
 
 @include('layouts.nav')
-<div class="container-fluid">
-    <div class="row">
-        @if(Auth::check())
-            @include('layouts.nav_sidebar')
-        @endif
-        @yield('content')
+    <div class="container-fluid">
+        <div class="row">
+            @if(Auth::check())
+                @include('layouts.nav_sidebar')
+            @endif
+            @yield('content')
+        </div>
     </div>
-</div>
+
 
 
 <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>

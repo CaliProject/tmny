@@ -14,7 +14,7 @@ class AdminController extends Controller {
     use APIResponse;
 
     public function showIndex(){
-
+        $this->init();
         return view('admin.home');
     }
 
@@ -60,11 +60,30 @@ class AdminController extends Controller {
                 'data' => json_encode($abouts),
             ]);
         }
+        if(!$this->getAboutHeader()){
+            $abouts = [];
+            array_push($abouts,['body' => 'body']);
+            Configuration::create([
+                'key' => 'aboutHeader',
+                'data' => json_encode($abouts),
+            ]);
+        }
     }
 
     public function getAboutData(){
 
         return Configuration::where('key','aboutContent')->value('data');
+    }
+    public function getAboutHeader(){
+
+        return Configuration::where('key','aboutHeader')->value('data');
+    }
+
+    public function updateAboutHeader($abouts){
+
+        return Configuration::where('key','aboutHeader')->update([
+            'data' => json_encode($abouts),
+        ]);
     }
 
     public function updateAboutData($abouts){
@@ -76,8 +95,9 @@ class AdminController extends Controller {
 
     public function showAbout(){
         $abouts = $this->getAboutData();
-
-        return view('admin.about.home',compact('abouts'));
+        $aboutHeaders = $this->getAboutHeader();
+        $aboutHeader = $aboutHeaders[0]->body;
+        return view('admin.about.home',['abouts' => $abouts,'header' => $aboutHeader]);
     }
 
     public function deleteAbout($id){
@@ -93,6 +113,12 @@ class AdminController extends Controller {
         $abouts = $abouts[$id];
         return view('admin.about.edit',['abouts' => $abouts,'id' => $id]);
     }
+    public function showAboutHeader(){
+        $aboutHeaders = $this->getAboutHeader();
+        $header = $aboutHeaders[0]->body;
+
+        return view('admin.about.editHeader',compact('header'));
+    }
 
     public function editAbout(Request $request,$id){
         $this->validate($request,[
@@ -102,7 +128,9 @@ class AdminController extends Controller {
         $abouts = $this->getAboutData();
         $abouts[$id]->header = $request->header;
         $abouts[$id]->content = $request->content;
-        return $this->updateAboutData($abouts) ? $this->showAbout() : redirect()->back()->whit($this->errorResponse());
+        return $this->updateAboutData($abouts) ? $this->showAbout() : $this->errorResponse([
+            'message' => '修改失败'
+        ]);
     }
 
     public function showAddAbout(){
