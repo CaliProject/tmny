@@ -18,17 +18,7 @@ class AdminController extends Controller {
      */
     public function showIndex()
     {
-        $this->init();
-
         return view('admin.home');
-    }
-
-    /**
-     * Initialize about data.
-     */
-    public function init()
-    {
-        $this->initAbout();
     }
 
     /**
@@ -66,18 +56,6 @@ class AdminController extends Controller {
                 'old_error' => '原密码错误'
             ]);
         }
-    }
-
-    /**
-     * Init about data.
-     */
-    public function initAbout()
-    {
-        if (! $this->getAboutData())
-            Configuration::aboutContent(["header" => 'header', "content" => 'content']);
-
-        if (! $this->getAboutHeader())
-            Configuration::aboutHeader(['body' => 'body']);
     }
 
     /**

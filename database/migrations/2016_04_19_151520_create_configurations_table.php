@@ -1,10 +1,11 @@
 <?php
 
+use App\Configuration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateConfigurationsTable extends Migration
-{
+class CreateConfigurationsTable extends Migration {
+
     /**
      * Run the migrations.
      *
@@ -18,6 +19,8 @@ class CreateConfigurationsTable extends Migration
             $table->text('data');
             $table->timestamps();
         });
+
+        Configuration::setupData();
     }
 
     /**
