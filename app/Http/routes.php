@@ -24,6 +24,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('about','AdminController@showAbout');
     Route::get('editAbout/{id}','AdminController@showEditAbout');
     Route::post('editAbout/{id}','AdminController@editAbout');
+    Route::get('editAboutHeader','AdminController@showAboutHeader');
     Route::get('deleteAbout/{id}','AdminController@deleteAbout');
     Route::get('addAbout','AdminController@showAddAbout');
     Route::post('addAbout','AdminController@addAbout');
