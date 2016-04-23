@@ -1,6 +1,6 @@
 <div class="col-md-2">
-            <ul class="nav nav-sidebar text-center">
-                <li><a href="#about">关于天美</a></li>
+            <ul class="nav nav-sidebar text-center" >
+                <li><a href="{{ url('admin/about') }}">关于天美</a></li>
                 <li><a href="#swrvices">产业链条</a></li>
                 <li><a href="#portfolio">时令产品</a></li>
                 <li><a href="#jidi">时令基地</a></li>

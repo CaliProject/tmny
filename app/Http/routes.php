@@ -22,7 +22,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('updatePassword','AdminController@showUpdatePassword');
     Route::post('updatePassword','AdminController@updatePassword');
     Route::get('about','AdminController@showAbout');
-    Route::get('editAbout','AdminController@editAbout');
+    Route::get('editAbout/{id}','AdminController@showEditAbout');
+    Route::post('editAbout/{id}','AdminController@editAbout');
+    Route::get('deleteAbout/{id}','AdminController@deleteAbout');
     Route::get('addAbout','AdminController@showAddAbout');
     Route::post('addAbout','AdminController@addAbout');
 });

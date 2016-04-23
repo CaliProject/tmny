@@ -24,4 +24,8 @@ class Configuration extends Model {
     {
         return json_decode($this->attributes['data']);
     }
+
+
+
+
 }

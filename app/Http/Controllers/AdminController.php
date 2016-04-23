@@ -5,18 +5,25 @@ namespace App\Http\Controllers;
 use App\Configuration;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Hash;
+use App\APIResponse;
 
 class AdminController extends Controller {
 
-    public function showIndex()
-    {
+    use APIResponse;
+
+    public function showIndex(){
+
         return view('admin.home');
     }
 
+    public function init(){
+        $this->initAbout();
+    }
+
     public function showUpdatePassword(){
+
         return view('admin.updatePassword');
     }
 
@@ -44,38 +51,74 @@ class AdminController extends Controller {
         }
     }
 
-    public function showAbout(){
-        $abouts = Configuration::where('key','aboutContent')->value('data');
-        return view('admin.about.home',compact('abouts'));
-    }
-
-    public function editAbout(){
-
-    }
-
-    public function showAddAbout(){
-        return view('admin.about.add');
-    }
-
-    public function addAbout(Request $request){
-        $abouts = Configuration::where('key','aboutContent')->value('data');
-        if(!$abouts){
+    public function initAbout(){
+        if(!$this->getAboutData()){
             $abouts = [];
-            $record = true;
-        }else{
-            $record = false;
-        }
-        array_push($abouts,["header" => $request->header,"content" => $request->content]);
-        if($record){
+            array_push($abouts,["header" => 'header',"content" => 'content']);
             Configuration::create([
                 'key' => 'aboutContent',
                 'data' => json_encode($abouts),
             ]);
-        }else{
-            Configuration::where('key','aboutContent')->update([
-                'data' => json_encode($abouts),
-            ]);
         }
+    }
+
+    public function getAboutData(){
+
+        return Configuration::where('key','aboutContent')->value('data');
+    }
+
+    public function updateAboutData($abouts){
+
+        return Configuration::where('key','aboutContent')->update([
+            'data' => json_encode($abouts),
+        ]);
+    }
+
+    public function showAbout(){
+        $abouts = $this->getAboutData();
+
+        return view('admin.about.home',compact('abouts'));
+    }
+
+    public function deleteAbout($id){
+        $abouts = $this->getAboutData();
+        unset($abouts[$id]);
+        $this->updateAboutData($abouts);
+
+        return $this->showAbout();
+    }
+
+    public function showEditAbout($id){
+        $abouts = $this->getAboutData();
+        $abouts = $abouts[$id];
+        return view('admin.about.edit',['abouts' => $abouts,'id' => $id]);
+    }
+
+    public function editAbout(Request $request,$id){
+        $this->validate($request,[
+            'header' => 'required',
+            'content' => 'required',
+        ]);
+        $abouts = $this->getAboutData();
+        $abouts[$id]->header = $request->header;
+        $abouts[$id]->content = $request->content;
+        return $this->updateAboutData($abouts) ? $this->showAbout() : redirect()->back()->whit($this->errorResponse());
+    }
+
+    public function showAddAbout(){
+
+        return view('admin.about.add');
+    }
+
+    public function addAbout(Request $request){
+        $this->validate($request,[
+            'header' => 'required',
+            'content' => 'required',
+        ]);
+        $abouts = $this->getAboutData();
+        array_push($abouts,["header" => $request->header,"content" => $request->content]);
+        $this->updateAboutData($abouts);
+
         return $this->showAbout();
     }
 }
