@@ -15,10 +15,16 @@ Route::get('/', 'HomeController@showIndex');
 
 Route::get('login', 'Auth\AuthController@showLoginForm');
 Route::post('login', 'Auth\AuthController@login');
+Route::get('logout', 'Auth\AuthController@logout');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/', 'AdminController@showIndex');
-    Route::get('test',function(){
-       return "test";
-    });
+    Route::get('updatePassword','AdminController@showUpdatePassword');
+    Route::post('updatePassword','AdminController@updatePassword');
+    Route::get('about','AdminController@showAbout');
+    Route::get('editAbout/{id}','AdminController@showEditAbout');
+    Route::post('editAbout/{id}','AdminController@editAbout');
+    Route::get('deleteAbout/{id}','AdminController@deleteAbout');
+    Route::get('addAbout','AdminController@showAddAbout');
+    Route::post('addAbout','AdminController@addAbout');
 });

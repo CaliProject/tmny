@@ -9,13 +9,22 @@
 
     <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+
 </head>
 <body>
 
 @include('layouts.nav')
+<div class="container-fluid">
+    <div class="row">
+        @if(Auth::check())
+            @include('layouts.nav_sidebar')
+        @endif
+        @yield('content')
+    </div>
+</div>
 
-@yield('content')
 
 <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>
