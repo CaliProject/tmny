@@ -1,0 +1,47 @@
+.nav-sidebar li {
+    border-radius: 8px;
+    margin: 8px 0;
+}
+
+.nav-sidebar li > a {
+    border-radius: 8px;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+}
+
+.nav-sidebar li > a > .fa {
+    float: right;
+    top: 3px;
+    position: relative;
+    right: 0;
+}
+
+.nav-sidebar li > a:hover {
+    background: #d6e9c6;
+    color: #3c763d;
+}
+
+.nav-sidebar > li.active > a {
+    background: #d6e9c6;
+    color: #3c763d;
+}
+
+.well {
+    background: #d6e9c6;
+    color: #3c763d;
+}
+
+.btn {
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+}
+
+textarea {
+    resize: vertical;
+}

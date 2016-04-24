@@ -27,8 +27,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::get('edit', 'AdminController@showEditAbout');
         Route::patch('{id}', 'AdminController@editAbout');
         Route::delete('{id}', 'AdminController@deleteAbout');
-        Route::get('editAboutHeader', 'AdminController@showAboutHeader');
         Route::get('add', 'AdminController@showAddAbout');
         Route::post('add', 'AdminController@addAbout');
+    });
+    Route::group(['prefix' => 'services'],function () {
+        Route::get('{operation}','AdminController@showServices');
+        Route::post('add','AdminController@addServices');
+        Route::patch('{id}','AdminController@editServices');
+        Route::delete('{id}','AdminController@deleteServices');
     });
 });

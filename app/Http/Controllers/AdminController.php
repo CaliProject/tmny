@@ -89,7 +89,7 @@ class AdminController extends Controller {
      */
     public function getAboutHeader()
     {
-        return $this->interpolateObj(['title' => Configuration::about()->title,'caption' => Configuration::about()->caption]);
+        return $this->interpolateObj(['title' => Configuration::about()->title, 'caption' => Configuration::about()->caption]);
     }
 
     /**
@@ -100,17 +100,19 @@ class AdminController extends Controller {
      * @param $id
      * @return mixed
      */
-    public function updateAbout($value,$id = null)
+
+    public function updateAbout($request, $id = null)
     {
-        $abouts = Configuration::about();
-        if(is_null($id)){
-            $abouts->title = $value->title;
-            $abouts->caption = $value->caption;
-        }else{
-            $abouts->sections[$id]->title = $value->title;
-            $abouts->sections[$id]->body = $value->body;
+        $about = Configuration::about();
+        if (is_null($id)) {
+            $about->title = $request->title;
+            $about->caption = $request->caption;
+        } else {
+            $about->sections[$id]->title = $request->title;
+            $about->sections[$id]->body = $request->body;
         }
-        return Configuration::about($abouts);
+
+        return Configuration::about($about);
     }
 
     /**
@@ -122,6 +124,7 @@ class AdminController extends Controller {
     {
         $abouts = $this->getAboutData();
         $aboutHeader = $this->getAboutHeader();
+
         return view('admin.about.home', ['abouts' => $abouts, 'header' => $aboutHeader]);
     }
 
@@ -161,19 +164,6 @@ class AdminController extends Controller {
 
 
     /**
-     * Show about header.
-     *
-     * @return mixed
-     */
-    public function showAboutHeader()
-    {
-        $aboutHeaders = $this->getAboutHeader();
-        $header = $aboutHeaders[0]->body;
-
-        return view('admin.about.editHeader', compact('header'));
-    }
-
-    /**
      * Edit about.
      *
      * @param Request $request
@@ -182,12 +172,13 @@ class AdminController extends Controller {
      */
     public function editAbout(Request $request, $id)
     {
-        switch($id){
+        switch ($id) {
             case 'header':
-                $this->validate($request,[
-                    'title' => 'required',
+                $this->validate($request, [
+                    'title'   => 'required',
                     'caption' => 'required',
                 ]);
+
                 return $this->updateAbout($request) ? $this->successResponse([
                     'message' => '修改成功',
                 ]) : $this->errorResponse([
@@ -195,11 +186,12 @@ class AdminController extends Controller {
                 ]);
                 break;
             default:
-                $this->validate($request,[
+                $this->validate($request, [
                     'title' => 'required',
-                    'body' => 'required',
+                    'body'  => 'required',
                 ]);
-                return $this->updateAbout($request,$id) ? $this->successResponse([
+
+                return $this->updateAbout($request, $id) ? $this->successResponse([
                     'message' => '修改成功',
                 ]) : $this->errorResponse([
                     'message' => '修改失败',
@@ -227,13 +219,159 @@ class AdminController extends Controller {
     public function addAbout(Request $request)
     {
         $this->validate($request, [
-            'header'  => 'required',
-            'content' => 'required',
+            'title'  => 'required',
+            'body' => 'required',
         ]);
 
-        $abouts = $this->getAboutData();
-        array_push($abouts, ["title" => $re quest->input('title'), "body" => $request->input('body')]);
-        dd(count($abouts));
-        return $this->showAbout();
+        $abouts = Configuration::about();
+        array_push($abouts->sections, ["title" => $request->input('title'), "body" => $request->input('body')]);
+
+        return Configuration::about($abouts) ? $this->successResponse([
+            'message' => '添加成功'
+        ]) : $this->errorResponse([
+            'message' => '添加失败'
+        ]);
     }
+
+    /**
+     * get services data
+     * 获取services的数据
+     *
+     * @return mixed
+     *
+     */
+    public function getServicesData()
+    {
+        return Configuration::services()->provides;
+    }
+
+    /**
+     * get services header
+     * 获取services的头部信息
+     *
+     * @return mixed
+     */
+    public function getServicesHeader()
+    {
+        return $this->interpolateObj(['title' => Configuration::services()->title,'caption' => Configuration::services()->caption]);
+    }
+
+    /**
+     * update services data
+     * 修改services的数据
+     *
+     * @param $request
+     * @param null $id
+     * @return array
+     */
+    public function updateServices($request,$id = null)
+    {
+        $services = Configuration::services();
+        if(is_null($id)){
+            $services->title = $request->title;
+            $services->caption = $request->caption;
+        }else{
+            $services->provides[$id]->title = $request->title;
+            $services->provides[$id]->body = $request->body;
+        }
+
+        return Configuration::services($services) ? $this->successResponse([
+            'message' => '修改成功'
+        ]) : $this->errorResponse([
+            'message' => '修改失败'
+        ]);
+    }
+
+    /**
+     * show services page
+     * 显示services的所有页面
+     *
+     * @param $operation 哪一个页面
+     * @return mixed
+     */
+    public function showServices($operation)
+    {
+        if($operation != 'add'){
+            $provides = $this->getServicesData();
+            $header = $this->getServicesHeader();
+            return view('admin.services.'.$operation,['provides' => $provides,'header' => $header]);
+        } else {
+            return view('admin.services.'.$operation);
+        }
+    }
+
+    /**
+     * edit services header or provides
+     * 编辑services的头部或者provides
+     *
+     * @param Request $request
+     * @param $id
+     * @return array
+     */
+    public function editServices(Request $request,$id)
+    {
+        switch($id){
+            case 'header':
+                $this->validate($request,[
+                    'title' => 'required',
+                    'caption' => 'required'
+                ]);
+
+                return $this->updateServices($request);
+                break;
+            default:
+                $this->validate($request,[
+                    'title' => 'required',
+                    'body' => 'required'
+                ]);
+
+                return $this->updateServices($request,$id);
+                break;
+        }
+    }
+
+    /**
+     * add a services
+     * 添加services板块
+     *
+     * @param Request $request
+     * @return array
+     */
+    public function addServices(Request $request)
+    {
+        $this->validate($request,[
+            'title' => 'required',
+            'body' => 'required'
+        ]);
+        $services = Configuration::services();
+        array_push($services->provides,['title' => $request->input('title'),'body' => $request->input('body')]);
+
+        return Configuration::services($services) ? $this->successResponse([
+            'message' => '添加成功'
+        ]) : $this->errorResponse([
+            'message' => '添加失败'
+        ]);
+
+    }
+
+    /**
+     * delete a services
+     * 删除services的一个板块
+     *
+     * @param $id
+     * @return array
+     */
+    public function deleteServices($id)
+    {
+        $services = Configuration::services();
+        unset($services->provides[intval($id)]);
+        $services->provides = array_flatten($services->provides);
+
+        return Configuration::services($services) ? $this->successResponse([
+            'message' => '删除成功'
+        ]) : $this->errorResponse([
+            'message' => '删除失败'
+        ]);
+    }
+
 }
