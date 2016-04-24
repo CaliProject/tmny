@@ -30,7 +30,12 @@
                     </div>
                     <div class="panel-body">
                         <p>{{ $about->body }}</p>
-                        <a href="{{ url('admin/about/' . $key) }}" class="btn btn-danger pull-right">删除</a>
+                        <hr>
+                        <form action="{{ url('admin/about/'.$key) }}" class="form-horizontal" method="post" role="form">
+                            {{ csrf_field() }}
+                            {{ method_field('delete') }}
+                            <button type="submit" class="btn btn-danger pull-right">删除</button>
+                        </form>
                     </div>
                 </div>
             </div>

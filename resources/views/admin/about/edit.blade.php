@@ -4,7 +4,7 @@
 
 @section('breadcrumb')
     <li><a href="{{ url('admin/about') }}">关于天美</a></li>
-    <li class="active">添加板块</li>
+    <li class="active">编辑-关于天美</li>
 @stop
 
 @section('content')
@@ -66,8 +66,7 @@
                         <div class="form-group{{ $errors->has('body') ? 'has-error' : '' }}">
                             <label for="body" class="col-md-3 control-label">板块内容</label>
                             <div class="col-md-9">
-                                    <textarea name="body" id="body" class="form-control" cols="30"
-                                              rows="10">{{ $about->body }}</textarea>
+                                    <textarea name="body" id="body" class="form-control" cols="30" rows="10">{{ $about->body }}</textarea>
                                 @if($errors->has('body'))
                                     <div class="help-block">
                                         <span>{{ $errors->first('body') }}</span>

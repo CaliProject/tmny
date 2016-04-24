@@ -6,7 +6,7 @@
         </a>
     </li>
     <li{{ request()->is('admin/services*') ? ' class=active' : '' }}>
-        <a href="{{ url('admin/services') }}">
+        <a href="{{ url('admin/services/home') }}">
             产业链条
             <i class="fa fa-chevron-right"></i>
         </a>
