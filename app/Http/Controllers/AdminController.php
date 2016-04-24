@@ -22,6 +22,18 @@ class AdminController extends Controller {
     }
 
     /**
+     * interpolate the object
+     * 转换成一个对象
+     *
+     * @param $arr
+     * @return mixed
+     */
+    public function interpolateObj($arr = [])
+    {
+        return json_decode(json_encode($arr));
+    }
+
+    /**
      * SHow update password page.
      *
      * @return mixed
@@ -60,44 +72,45 @@ class AdminController extends Controller {
 
     /**
      * Get about data.
+     * 获取about的数据
      *
      * @return mixed
      */
     public function getAboutData()
     {
-        return Configuration::aboutContent();
+        return Configuration::about()->sections;
     }
 
     /**
-     * Get header data of about.
+     * Get about header.
+     * 获取about的头部.
      *
-     * @return mixed
+     * @return array
      */
     public function getAboutHeader()
     {
-        return Configuration::aboutHeader();
+        return $this->interpolateObj(['title' => Configuration::about()->title,'caption' => Configuration::about()->caption]);
     }
 
     /**
-     * Update about header data.
+     * update the data of the about
+     * 更新about的data数据
      *
-     * @param $abouts
+     * @param $request
+     * @param $id
      * @return mixed
      */
-    public function updateAboutHeader($abouts)
+    public function updateAbout($request,$id = null)
     {
-        return Configuration::aboutHeader($abouts);
-    }
-
-    /**
-     * Update the about data.
-     *
-     * @param $abouts
-     * @return mixed
-     */
-    public function updateAboutData($abouts)
-    {
-        return Configuration::aboutContent($abouts);
+        $abouts = Configuration::about();
+        if(is_null($id)){
+            $abouts->title = $request->title;
+            $abouts->caption = $request->caption;
+        }else{
+            $abouts->sections[$id]->title = $request->title;
+            $abouts->sections[$id]->body = $request->body;
+        }
+        return Configuration::about($abouts);
     }
 
     /**
@@ -108,10 +121,22 @@ class AdminController extends Controller {
     public function showAbout()
     {
         $abouts = $this->getAboutData();
-        $aboutHeaders = $this->getAboutHeader();
-        $aboutHeader = $aboutHeaders->body;
-
+        $aboutHeader = $this->getAboutHeader();
         return view('admin.about.home', ['abouts' => $abouts, 'header' => $aboutHeader]);
+    }
+
+    /**
+     * Show edit page for about.
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function showEditAbout()
+    {
+        $abouts = $this->getAboutData();
+        $header = $this->getAboutHeader();
+
+        return view('admin.about.edit', ['abouts' => $abouts, 'header' => $header]);
     }
 
     /**
@@ -129,19 +154,7 @@ class AdminController extends Controller {
         return $this->showAbout();
     }
 
-    /**
-     * Show edit page for about.
-     *
-     * @param $id
-     * @return mixed
-     */
-    public function showEditAbout($id)
-    {
-        $abouts = $this->getAboutData();
-        $abouts = $abouts[$id];
 
-        return view('admin.about.edit', ['abouts' => $abouts, 'id' => $id]);
-    }
 
     /**
      * Show about header.
@@ -165,19 +178,43 @@ class AdminController extends Controller {
      */
     public function editAbout(Request $request, $id)
     {
-        $this->validate($request, [
-            'header'  => 'required',
-            'content' => 'required',
-        ]);
-        $abouts = $this->getAboutData();
-        $abouts[$id]->header = $request->input('header');
-        $abouts[$id]->content = $request->input('content');
-
-        return $this->updateAboutData($abouts) ?
-            $this->showAbout() :
-            $this->errorResponse([
-                'message' => '修改失败'
-            ]);
+//        $this->validate($request, [
+//            'header'  => 'required',
+//            'content' => 'required',
+//        ]);
+//        $abouts = $this->getAboutData();
+//        $abouts[$id]->header = $request->input('header');
+//        $abouts[$id]->content = $request->input('content');
+//
+//        return $this->updateAboutData($abouts) ?
+//            $this->showAbout() :
+//            $this->errorResponse([
+//                'message' => '修改失败'
+//            ]);
+        switch($id){
+            case 'header':
+                $this->validate($request,[
+                    'title' => 'required',
+                    'caption' => 'required',
+                ]);
+                return $this->updateAbout($request) ? $this->successResponse([
+                    'message' => '修改成功',
+                ]) : $this->errorResponse([
+                    'message' => '修改失败',
+                ]);
+                break;
+            default:
+                $this->validate($request,[
+                    'title' => 'required',
+                    'body' => 'required',
+                ]);
+                return $this->updateAbout($request,$id) ? $this->successResponse([
+                    'message' => '修改成功',
+                ]) : $this->errorResponse([
+                    'message' => '修改失败',
+                ]);
+                break;
+        }
     }
 
     /**

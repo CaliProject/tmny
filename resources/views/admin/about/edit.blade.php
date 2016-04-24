@@ -3,44 +3,72 @@
 @section('title','编辑')
 
 @section('content')
-    <div class="col-md-8">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3>编辑</h3>
-            </div>
-            <div class="panel-body">
-                <form action="{{ url('admin/about/'.$id) }}" class="form-horizontal" method="post" role="form">
-                    {{ csrf_field() }}
-                    <div class="form-group{{ $errors->has('header') ? 'has-error' : '' }}">
-                        <label for="header" class="col-md-3 control-label">板块标题</label>
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" id="header" name="header" value="{{ $abouts->header }}">
-                            @if($errors->has('header'))
-                                <div class="help-block">
-                                    <span>{{ $errors->first('header') }}</span>
-                                </div>
-                            @endif
+    <div class="col-md-10">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>编辑标题</h3>
+                </div>
+                <div class="panel-body">
+                    <form action="{{ url('admin/about/header') }}" class="form-horizontal" role="form" method="post">
+                        {{ csrf_field() }}
+                        {{ method_field('patch') }}
+                        <div class="form-group">
+                            <label for="title" class="col-md-3 control-label">标题</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="title" id="title" value="{{ $header->title }}">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group{{ $errors->has('content') ? 'has-error' : '' }}">
-                        <label for="content" class="col-md-3 control-label">板块内容</label>
-                        <div class="col-md-6">
-                            <textarea name="content" id="content" class="form-control" cols="30" rows="10">{{ $abouts->content }}</textarea>
-                            @if($errors->has('content'))
-                                <div class="help-block">
-                                    <span>{{ $errors->first('content') }}</span>
-                                </div>
-                            @endif
+                        <div class="form-group">
+                            <label for="caption" class="col-md-3 control-label">标题内容</label>
+                            <div class="col-md-6">
+                                <textarea class="form-control" name="caption" id="caption" cols="30" rows="10">{{ $header->caption }}</textarea>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-6 col-md-offset-3">
-                            <a href="{{ url()->previous() }}" class="btn btn-danger">返回</a>
-                            <button type="submit" class="btn btn-primary">确认修改</button>
-                        </div>
-                    </div>
-                </form>
+                        <hr>
+                        <button type="submit" class="btn btn-primary btn-block">确认修改</button>
+                    </form>
+                </div>
             </div>
         </div>
+        @foreach($abouts as $id => $about)
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>编辑板块</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form action="{{ url('admin/about/'.$id) }}" class="form-horizontal" method="post" role="form">
+                            {{ csrf_field() }}
+                            {{ method_field('patch') }}
+                            <div class="form-group{{ $errors->has('title') ? 'has-error' : '' }}">
+                                <label for="title" class="col-md-3 control-label">板块标题</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="title" name="title" value="{{ $about->title }}">
+                                    @if($errors->has('title'))
+                                        <div class="help-block">
+                                            <span>{{ $errors->first('title') }}</span>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group{{ $errors->has('body') ? 'has-error' : '' }}">
+                                <label for="body" class="col-md-3 control-label">板块内容</label>
+                                <div class="col-md-6">
+                                    <textarea name="body" id="body" class="form-control" cols="30" rows="10">{{ $about->body }}</textarea>
+                                    @if($errors->has('body'))
+                                        <div class="help-block">
+                                            <span>{{ $errors->first('body') }}</span>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                            <hr>
+                            <button type="submit" class="btn btn-primary btn-block">确认修改</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </div>
 @endsection
