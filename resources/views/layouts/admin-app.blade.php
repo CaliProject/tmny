@@ -9,6 +9,7 @@
 
     <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/summernote/0.8.1/summernote.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
@@ -33,6 +34,8 @@
 
     <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="//cdn.bootcss.com/summernote/0.8.1/summernote.min.js"></script>
+    <script src="//cdn.bootcss.com/summernote/0.8.1/lang/summernote-zh-CN.min.js"></script>
     <script src="/js/admin.js"></script>
 </body>
 </html>

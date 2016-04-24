@@ -54,4 +54,8 @@ $(document).ready(function () {
     };
 
     $('#nostalgia').nostalgia(options, page, slide, audio, config, configDefault);
+
+    $(".social-wechat").on('click', function () {
+        $(".qrcode-wrapper").toggleClass('show');
+    });
 });

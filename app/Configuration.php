@@ -213,10 +213,5 @@ class Configuration extends Model {
                 'company' => '深圳市天美农业服务有限公司'
             ]
         ]);
-
-        self::site([
-            'logo'   => '',
-            'wechat' => ''
-        ]);
     }
 }

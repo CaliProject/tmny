@@ -1,60 +1,22 @@
 <div class="page-about clear-fix">
     <!-- Header + subtitle -->
-    <h1>About</h1>
+    <h1>{{ $about->title }}</h1>
     <p class="subtitle-paragraph">
-        I just love photography, it is my true passion.
-        <span class="bold">To me photography is an art of observation.</span>
+        <span class="bold">{{ $about->caption }}</span>
     </p>
     <!-- /Header + subtitle -->
 
     <!-- List -->
     <ul class="no-list list-1">
 
+        @foreach($about->sections as $index => $section)
         <!-- List element -->
-        <li class="left">
-            <h3>Vestibulum act</h3>
-            <p>
-                Donec eget ultricies sapi. Sed porttitor, mauris ater lobortis facilisis, elit sapie
-                eleifend ligula, et facilisis dolor odio vitae nunc. Phasellus ultricies eliteg.
-            </p>
+        <li class="{{ $index % 2 === 0 ? 'left' : 'right' }}">
+            <h3>{{ $section->title }}</h3>
+            <p>{{ $section->body }}</p>
         </li>
         <!-- /List element -->
-
-        <li class="right">
-            <h3>Iaculis gravida</h3>
-            <p>
-                Praesent cursus lectus nec turpis luctus molest. Suspendisse ligula orci, hendrerit
-                vitae mattis non, dignissim at nibh. Curabitur feugiat, leo quiset.
-            </p>
-        </li>
-        <li class="left">
-            <h3>Nam ut elit ante</h3>
-            <p>
-                Vestibulum varius lectus massa, eget sodales era. Nullam in augue magnat, at ultricies
-                lectus. Pellentesque mal consequat lobortis. Maecenas dictu.
-            </p>
-        </li>
-        <li class="right">
-            <h3>Suspendisse pot</h3>
-            <p>
-                Aliquam egestas congue pulvinar. Integer ultricies luctus nisi eu facilisise. A lacus
-                nisi, condimentum ut facilisisu porttitor non nibh. Sed in nunc a er.
-            </p>
-        </li>
-        <li class="left">
-            <h3>Donec convallis</h3>
-            <p>
-                Aenean ultricies tortor ve tellus porta facilisis. Nunc sit amet massa in enimm interdum
-                in nec lorem. Nullam ligula urna, posuere malesuada pulvinarit.
-            </p>
-        </li>
-        <li class="right">
-            <h3>Proin convallis</h3>
-            <p>
-                Cras lobortis lacus vel i elementum a volut ipsum fermentum. Nullam aclore at nulla
-                egestas commodo. Nam nec porta ipsum. Mauris et bibendum nu.
-            </p>
-        </li>
+        @endforeach
 
     </ul>
     <!-- /List -->

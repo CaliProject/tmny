@@ -5,8 +5,8 @@
 
     <title>天美农业</title>
 
-    <meta name="keywords" content="clean, creative, full screen, fullscreen, jquery, minimal, minimalistic, modern, personal, portfolio, responsive, retro, template, vintage, yellow">
-    <meta name="description" content="Nostalgia is a HTML portfolio template - personal or corporate, based on full-screen slider and sliding pages. The template is maintained in a minimalist, contrasting style. Background images kept in retro tones contrast with modern minimalist content.">
+    <meta name="keywords" content="天美农业,天美荔枝">
+    <meta name="description" content="天美，让你生活天天美好！">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
@@ -33,39 +33,39 @@
         var config = {
             "about": {
                 "title": "关于天美 - 天美农业",
-                "keywords": "",
-                "description": ""
+                "keywords": "天美农业,天美荔枝",
+                "description": "天美，让你生活天天美好！"
             },
             "services": {
                 "title": "产业链条 - 天美农业",
-                "keywords": "",
-                "description": ""
+                "keywords": "天美农业,天美荔枝",
+                "description": "天美，让你生活天天美好！"
             },
             "portfolio": {
                 "title": "时令产品 - 天美农业",
-                "keywords": "",
-                "description": ""
+                "keywords": "天美农业,天美荔枝",
+                "description": "天美，让你生活天天美好！"
             },
             "blog": {
                 "title": "新鲜生活 - 天美农业",
-                "keywords": "",
-                "description": ""
+                "keywords": "天美农业,天美荔枝",
+                "description": "天美，让你生活天天美好！"
             },
             "contact": {
                 "title": "联系天美 - 天美农业",
-                "keywords": "",
-                "description": ""
+                "keywords": "天美农业,天美荔枝",
+                "description": "天美，让你生活天天美好！"
             },
             "basement": {
                 "title": "时令基地 - 天美农业",
-                "keywords": "",
-                "description": ""
+                "keywords": "天美农业,天美荔枝",
+                "description": "天美，让你生活天天美好！"
             }
         };
         var configDefault = {
             "title": "天美农业",
-            "keywords": "clean, creative, full screen, fullscreen, jquery, minimal, minimalistic, modern, personal, portfolio, responsive, retro, template, vintage, yellow",
-            "description": "Nostalgia is a HTML portfolio template - personal or corporate, based on full-screen slider and sliding pages. The template is maintained in a minimalist, contrasting style. Background images kept in retro tones contrast with modern minimalist content."
+            "keywords": "天美农业,天美荔枝",
+            "description": "天美，让你生活天天美好！"
         };
         var mainURL = '/';
     </script>
@@ -181,13 +181,18 @@
             <div id="nostalgia-tab-footer" class="clear-fix">
 
                 <ul class="no-list social-list">
-                    <li><a class="social-list" href="#"><i class="fa fa-wechat"></i></a></li>
+                    <li style="position:relative;">
+                        <a class="social-wechat" href="#"><i class="fa fa-wechat fa-2x" style="color: #fff;"></i></a>
+                        <div class="qrcode-wrapper">
+                            <img src="/images/qrcode.jpg" alt="" class="qrcode">
+                        </div>
+                    </li>
                 </ul>
 
                 <div class="nostalgia-tab-footer-caption">
 
-                    <span class="float-left"><a href="#">Please feel free toshare my works</a></span>
-                    <span class="float-right"><a href="#">{{ date('Y') }} &copy; - 天美农业</a></span>
+                    <span class="float-left"><a href="{{ url('/') }}">天美，让你生活天天美好！</a></span>
+                    <span class="float-right"><a href="{{ url('/') }}">{{ date('Y') }} &copy; 天美农业</a></span>
 
                 </div>
 

@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
-use Illuminate\Http\Request;
+use App\Configuration;
 
 class HomeController extends Controller
 {
@@ -24,7 +23,9 @@ class HomeController extends Controller
      */
     public function showAbout()
     {
-        return view('about');
+        $about = Configuration::about();
+        
+        return view('about', compact('about'));
     }
 
     /**
@@ -34,7 +35,9 @@ class HomeController extends Controller
      */
     public function showServices()
     {
-        return view('services');
+        $services = Configuration::services();
+
+        return view('services', compact('services'));
     }
 
     /**
@@ -74,6 +77,8 @@ class HomeController extends Controller
      */
     public function showContact()
     {
-        return view('contact');
+        $contact = Configuration::contact();
+        
+        return view('contact', compact('contact'));
     }
 }
