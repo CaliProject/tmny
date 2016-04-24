@@ -89,7 +89,7 @@ class AdminController extends Controller {
      */
     public function getAboutHeader()
     {
-        return $this->interpolateObj(['title' => Configuration::about()->title,'caption' => Configuration::about()->caption]);
+        return $this->interpolateObj(['title' => Configuration::about()->title, 'caption' => Configuration::about()->caption]);
     }
 
     /**
@@ -100,17 +100,18 @@ class AdminController extends Controller {
      * @param $id
      * @return mixed
      */
-    public function updateAbout($request,$id = null)
+    public function updateAbout($request, $id = null)
     {
-        $abouts = Configuration::about();
-        if(is_null($id)){
-            $abouts->title = $request->title;
-            $abouts->caption = $request->caption;
-        }else{
-            $abouts->sections[$id]->title = $request->title;
-            $abouts->sections[$id]->body = $request->body;
+        $about = Configuration::about();
+        if (is_null($id)) {
+            $about->title = $request->title;
+            $about->caption = $request->caption;
+        } else {
+            $about->sections[$id]->title = $request->title;
+            $about->sections[$id]->body = $request->body;
         }
-        return Configuration::about($abouts);
+
+        return Configuration::about($about);
     }
 
     /**
@@ -122,6 +123,7 @@ class AdminController extends Controller {
     {
         $abouts = $this->getAboutData();
         $aboutHeader = $this->getAboutHeader();
+
         return view('admin.about.home', ['abouts' => $abouts, 'header' => $aboutHeader]);
     }
 
@@ -153,7 +155,6 @@ class AdminController extends Controller {
 
         return $this->showAbout();
     }
-
 
 
     /**
@@ -191,12 +192,13 @@ class AdminController extends Controller {
 //            $this->errorResponse([
 //                'message' => '修改失败'
 //            ]);
-        switch($id){
+        switch ($id) {
             case 'header':
-                $this->validate($request,[
-                    'title' => 'required',
+                $this->validate($request, [
+                    'title'   => 'required',
                     'caption' => 'required',
                 ]);
+
                 return $this->updateAbout($request) ? $this->successResponse([
                     'message' => '修改成功',
                 ]) : $this->errorResponse([
@@ -204,11 +206,12 @@ class AdminController extends Controller {
                 ]);
                 break;
             default:
-                $this->validate($request,[
+                $this->validate($request, [
                     'title' => 'required',
-                    'body' => 'required',
+                    'body'  => 'required',
                 ]);
-                return $this->updateAbout($request,$id) ? $this->successResponse([
+
+                return $this->updateAbout($request, $id) ? $this->successResponse([
                     'message' => '修改成功',
                 ]) : $this->errorResponse([
                     'message' => '修改失败',

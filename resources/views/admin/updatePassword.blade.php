@@ -3,8 +3,8 @@
 @section('title','修改密码')
 
 @section('content')
-    <div class="col-md-10">
-        <div class="panel panel-default">
+    <div class="col-md-12 clearfix">
+        <div class="panel panel-success">
             <div class="panel-heading">
                 修改密码
             </div>
@@ -42,7 +42,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-9 col-md-offset-3">
-                            <button type="submit" class="btn btn-primary btn-block">确认修改</button>
+                            <button type="submit" class="btn btn-success btn-block">确认修改</button>
                         </div>
                     </div>
                 </form>

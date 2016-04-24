@@ -1,5 +1,7 @@
 @extends('layouts.admin-app')
 
-@section('content')
+@section('title', '管理首页')
 
-@endsection
+@section('breadcrumb')
+    <li class="active">首页</li>
+@stop
