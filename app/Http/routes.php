@@ -17,6 +17,13 @@ Route::get('login', 'Auth\AuthController@showLoginForm');
 Route::post('login', 'Auth\AuthController@login');
 Route::get('logout', 'Auth\AuthController@logout');
 
+Route::get('page/about', 'HomeController@showAbout');
+Route::get('page/services', 'HomeController@showServices');
+Route::get('page/portfolio', 'HomeController@showPortfolio');
+Route::get('page/blog', 'HomeController@showBlog');
+Route::get('page/basement', 'HomeController@showBasement');
+Route::get('page/contact', 'HomeController@showContact');
+
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/', 'AdminController@showIndex');
     Route::get('password', 'AdminController@showUpdatePassword');

@@ -138,7 +138,7 @@ a.image-link {
 #nostalgia-navigation-menu ul li a.selected,
 #nostalgia-navigation-prev-button:hover,
 #nostalgia-navigation-next-button:hover {
-    background-color: #FFC000;
+    background-color: #6edc46;
 }
 
 .jspDrag,
@@ -188,7 +188,7 @@ div.post div.post-image div.caption,
 ul.blog-list li.blog-list-post div.blog-list-post-image div.caption,
 ul.image-list div.image-list-caption div.image-list-caption-subtitle,
 .nostalgia-accordion .ui-accordion-header.ui-state-hover a {
-    color: #FFC000;
+    color: #6edc46;
 }
 
 /******************************************************************************/
@@ -402,43 +402,43 @@ h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover {
 }
 
 .icon-1.icon-1-1 {
-    background-image: url('../image/icon/icon-1/icon_document.png');
+    background-image: url('/images/icon/icon-1/icon_document.png');
 }
 
 .icon-1.icon-1-2 {
-    background-image: url('../image/icon/icon-1/icon_lightbulb.png');
+    background-image: url('/images/icon/icon-1/icon_lightbulb.png');
 }
 
 .icon-1.icon-1-3 {
-    background-image: url('../image/icon/icon-1/icon_post.png');
+    background-image: url('/images/icon/icon-1/icon_post.png');
 }
 
 .icon-1.icon-1-4 {
-    background-image: url('../image/icon/icon-1/icon_briefcase.png');
+    background-image: url('/images/icon/icon-1/icon_briefcase.png');
 }
 
 .icon-1.icon-1-5 {
-    background-image: url('../image/icon/icon-1/icon_camera.png');
+    background-image: url('/images/icon/icon-1/icon_camera.png');
 }
 
 .icon-1.icon-1-6 {
-    background-image: url('../image/icon/icon-1/icon_heart.png');
+    background-image: url('/images/icon/icon-1/icon_heart.png');
 }
 
 .icon-1.icon-1-7 {
-    background-image: url('../image/icon/icon-1/icon_people.png');
+    background-image: url('/images/icon/icon-1/icon_people.png');
 }
 
 .icon-1.icon-1-8 {
-    background-image: url('../image/icon/icon-1/icon_binoculars.png');
+    background-image: url('/images/icon/icon-1/icon_binoculars.png');
 }
 
 .icon-1.icon-1-9 {
-    background-image: url('../image/icon/icon-1/icon_image.png');
+    background-image: url('/images/icon/icon-1/icon_image.png');
 }
 
 .icon-1.icon-1-10 {
-    background-image: url('../image/icon/icon-1/icon_app.png');
+    background-image: url('/images/icon/icon-1/icon_app.png');
 }
 
 .icon-2 {
@@ -449,27 +449,27 @@ h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover {
 }
 
 .icon-2.icon-2-1 {
-    background-image: url('../image/icon/icon-2/icon_mini_phone.png');
+    background-image: url('/images/icon/icon-2/icon_mini_phone.png');
 }
 
 .icon-2.icon-2-2 {
-    background-image: url('../image/icon/icon-2/icon_mini_fax.png');
+    background-image: url('/images/icon/icon-2/icon_mini_fax.png');
 }
 
 .icon-2.icon-2-3 {
-    background-image: url('../image/icon/icon-2/icon_mini_mail.png');
+    background-image: url('/images/icon/icon-2/icon_mini_mail.png');
 }
 
 .icon-2.icon-2-4 {
-    background-image: url('../image/icon/icon-2/icon_mini_author.png');
+    background-image: url('/images/icon/icon-2/icon_mini_author.png');
 }
 
 .icon-2.icon-2-5 {
-    background-image: url('../image/icon/icon-2/icon_mini_category.png');
+    background-image: url('/images/icon/icon-2/icon_mini_category.png');
 }
 
 .icon-2.icon-2-6 {
-    background-image: url('../image/icon/icon-2/icon_mini_comment.png');
+    background-image: url('/images/icon/icon-2/icon_mini_comment.png');
 }
 
 /******************************************************************************/
@@ -678,11 +678,11 @@ input.button:hover {
 /******************************************************************************/
 
 .audio-player.music-on {
-    background-image: url('../image/icon/icon-jPlayer/audio_on.gif');
+    background-image: url('/images/icon/icon-jPlayer/audio_on.gif');
 }
 
 .audio-player.music-off {
-    background-image: url('../image/icon/icon-jPlayer/audio_off.gif');
+    background-image: url('/images/icon/icon-jPlayer/audio_off.gif');
 }
 
 /******************************************************************************/
@@ -744,7 +744,7 @@ input.button:hover {
 }
 
 #media-control #slidecaption-wrapper #slidecaption span.supersized-caption-title {
-    color: #FFC000;
+    color: #6edc46;
     line-height: 190%;
 }
 
@@ -773,11 +773,11 @@ input.button:hover {
 }
 
 #media-control #prevslide {
-    background-image: url('../image/icon_arrow_left.png');
+    background-image: url('/images/icon_arrow_left.png');
 }
 
 #media-control #nextslide {
-    background-image: url('../image/icon_arrow_right.png');
+    background-image: url('/images/icon_arrow_right.png');
 }
 
 #media-control #prevslide:active,
@@ -850,7 +850,7 @@ input.button:hover {
 
 #background-overlay div.background-overlay-1 {
     z-index: 2;
-    background-image: url('../image/background_overlay.png');
+    background-image: url('/images/background_overlay.png');
 }
 
 /******************************************************************************/
@@ -950,15 +950,15 @@ input.button:hover {
 }
 
 #nostalgia-navigation-close-button {
-    background-image: url('../image/icon_cross.png');
+    background-image: url('/images/icon_cross.png');
 }
 
 #nostalgia-navigation-prev-button {
-    background-image: url('../image/icon_arrow_up.png');
+    background-image: url('/images/icon_arrow_up.png');
 }
 
 #nostalgia-navigation-next-button {
-    background-image: url('../image/icon_arrow_down.png');
+    background-image: url('/images/icon_arrow_down.png');
 }
 
 #nostalgia-navigation-menu .audio-player,
@@ -1003,7 +1003,7 @@ input.button:hover {
     position: absolute;
     background-repeat: no-repeat;
     background-position: 0px 0px;
-    background-image: url('../image/click_here_arrow.png');
+    background-image: url('/images/click_here_arrow.png');
 }
 
 /**************************************************************************/
@@ -1037,51 +1037,51 @@ input.button:hover {
 }
 
 .nostalgia-tab-left .nostalgia-tab-icon-info {
-    background-image: url('../image/icon/icon-content/content_icon_info_left.png');
+    background-image: url('/images/icon/icon-content/content_icon_info_left.png');
 }
 
 .nostalgia-tab-left .nostalgia-tab-icon-mail {
-    background-image: url('../image/icon/icon-content/content_icon_mail_left.png');
+    background-image: url('/images/icon/icon-content/content_icon_mail_left.png');
 }
 
 .nostalgia-tab-left .nostalgia-tab-icon-image {
-    background-image: url('../image/icon/icon-content/content_icon_image_left.png');
+    background-image: url('/images/icon/icon-content/content_icon_image_left.png');
 }
 
 .nostalgia-tab-left .nostalgia-tab-icon-people {
-    background-image: url('../image/icon/icon-content/content_icon_people_left.png');
+    background-image: url('/images/icon/icon-content/content_icon_people_left.png');
 }
 
 .nostalgia-tab-left .nostalgia-tab-icon-features {
-    background-image: url('../image/icon/icon-content/content_icon_features_left.png');
+    background-image: url('/images/icon/icon-content/content_icon_features_left.png');
 }
 
 .nostalgia-tab-left .nostalgia-tab-icon-checkmark {
-    background-image: url('../image/icon/icon-content/content_icon_checkmark_left.png');
+    background-image: url('/images/icon/icon-content/content_icon_checkmark_left.png');
 }
 
 .nostalgia-tab-right .nostalgia-tab-icon-info {
-    background-image: url('../image/icon/icon-content/content_icon_info_right.png');
+    background-image: url('/images/icon/icon-content/content_icon_info_right.png');
 }
 
 .nostalgia-tab-right .nostalgia-tab-icon-mail {
-    background-image: url('../image/icon/icon-content/content_icon_mail_right.png');
+    background-image: url('/images/icon/icon-content/content_icon_mail_right.png');
 }
 
 .nostalgia-tab-right .nostalgia-tab-icon-image {
-    background-image: url('../image/icon/icon-content/content_icon_image_right.png');
+    background-image: url('/images/icon/icon-content/content_icon_image_right.png');
 }
 
 .nostalgia-tab-right .nostalgia-tab-icon-people {
-    background-image: url('../image/icon/icon-content/content_icon_people_right.png');
+    background-image: url('/images/icon/icon-content/content_icon_people_right.png');
 }
 
 .nostalgia-tab-right .nostalgia-tab-icon-checkmark {
-    background-image: url('../image/icon/icon-content/content_icon_checkmark_right.png');
+    background-image: url('/images/icon/icon-content/content_icon_checkmark_right.png');
 }
 
 .nostalgia-tab-right .nostalgia-tab-icon-features {
-    background-image: url('../image/icon/icon-content/content_icon_features_right.png');
+    background-image: url('/images/icon/icon-content/content_icon_features_right.png');
 }
 
 /**********************************************************************/
@@ -1095,8 +1095,8 @@ input.button:hover {
     position: absolute;
     padding: 0px 0px 0px 30px;
     background-color: rgba(255, 192, 0, 0.9);
-    -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#E5FFC000, endColorstr=#E5FFC000);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#E5FFC000, endColorstr=#E5FFC000);
+    -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#E56edc46, endColorstr=#E56edc46);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#E56edc46, endColorstr=#E56edc46);
 }
 
 .nostalgia-tab-left #nostalgia-tab-content {
@@ -1230,15 +1230,15 @@ input.button:hover {
 }
 
 #nostalgia-tab-footer ul.social-list li a.social-list-google {
-    background-image: url('../image/icon/icon-social/icon_social_google.png');
+    background-image: url('/images/icon/icon-social/icon_social_google.png');
 }
 
 #nostalgia-tab-footer ul.social-list li a.social-list-twitter {
-    background-image: url('../image/icon/icon-social/icon_social_twitter.png');
+    background-image: url('/images/icon/icon-social/icon_social_twitter.png');
 }
 
 #nostalgia-tab-footer ul.social-list li a.social-list-facebook {
-    background-image: url('../image/icon/icon-social/icon_social_facebook.png');
+    background-image: url('/images/icon/icon-social/icon_social_facebook.png');
 }
 
 /******************************************************************************/
