@@ -22,12 +22,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('password', 'AdminController@showUpdatePassword');
     Route::patch('password', 'AdminController@updatePassword');
 
-    Route::group([
-        'prefix' => 'about'
-    ], function () {
+    Route::group(['prefix' => 'about'], function () {
         Route::get('/', 'AdminController@showAbout');
-        Route::get('{id}', 'AdminController@showEditAbout');
-        Route::post('{id}', 'AdminController@editAbout');
+        Route::get('edit', 'AdminController@showEditAbout');
+        Route::patch('{id}', 'AdminController@editAbout');
         Route::delete('{id}', 'AdminController@deleteAbout');
         Route::get('editAboutHeader', 'AdminController@showAboutHeader');
         Route::get('add', 'AdminController@showAddAbout');
