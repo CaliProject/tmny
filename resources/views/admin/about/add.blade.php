@@ -11,26 +11,24 @@
             <div class="panel-body">
                 <form action="{{ url('admin/about/add') }}" class="form-horizontal" method="post" role="form">
                     {{ csrf_field() }}
-                    <div class="form-group{{ $errors->has('header') ? ' has-error' : '' }}">
-                        <label for="header" class="col-md-3 control-label">板块标题</label>
+                    <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+                        <label for="title" class="col-md-3 control-label">板块标题</label>
                         <div class="col-md-6">
-                            <input type="text" class="form-control" id="header" name="header"
-                                   value="{{ old('header') }}">
-                            @if($errors->has('header'))
+                            <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}">
+                            @if($errors->has('title'))
                                 <div class="help-block">
-                                    <span>{{ $errors->first('header') }}</span>
+                                    <span>{{ $errors->first('title') }}</span>
                                 </div>
                             @endif
                         </div>
                     </div>
-                    <div class="form-group{{ $errors->has('content') ? ' has-error' : '' }}">
-                        <label for="content" class="col-md-3 control-label">板块内容</label>
+                    <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
+                        <label for="body" class="col-md-3 control-label">板块内容</label>
                         <div class="col-md-6">
-                            <textarea name="content" id="content" class="form-control" cols="30"
-                                      rows="10">{{ old('content') }}</textarea>
-                            @if($errors->has('content'))
+                            <textarea name="body" id="body" class="form-control" cols="30" rows="10">{{ old('content') }}</textarea>
+                            @if($errors->has('body'))
                                 <div class="help-block">
-                                    <span>{{ $errors->first('content') }}</span>
+                                    <span>{{ $errors->first('body') }}</span>
                                 </div>
                             @endif
                         </div>

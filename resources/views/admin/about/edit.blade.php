@@ -5,6 +5,16 @@
 @section('content')
     <div class="col-md-10">
         <div class="col-md-12">
+            <ol class="breadcrumb">
+                <h4>编辑About
+                    <small>
+                        <a href="{{ url('admin/about') }}" class="btn btn-danger pull-right">返回</a>
+                    </small>
+                </h4>
+                <li><a href="{{ url('admin') }}">后台管理</a></li>
+                <li><a href="{{ url('admin/about') }}">关于天美</a></li>
+                <li class="active">编辑about</li>
+            </ol>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3>编辑标题</h3>

@@ -100,15 +100,15 @@ class AdminController extends Controller {
      * @param $id
      * @return mixed
      */
-    public function updateAbout($request,$id = null)
+    public function updateAbout($value,$id = null)
     {
         $abouts = Configuration::about();
         if(is_null($id)){
-            $abouts->title = $request->title;
-            $abouts->caption = $request->caption;
+            $abouts->title = $value->title;
+            $abouts->caption = $value->caption;
         }else{
-            $abouts->sections[$id]->title = $request->title;
-            $abouts->sections[$id]->body = $request->body;
+            $abouts->sections[$id]->title = $value->title;
+            $abouts->sections[$id]->body = $value->body;
         }
         return Configuration::about($abouts);
     }
@@ -147,11 +147,15 @@ class AdminController extends Controller {
      */
     public function deleteAbout($id)
     {
-        $abouts = $this->getAboutData();
-        unset($abouts[$id]);
-        $this->updateAboutData($abouts);
+        $abouts = Configuration::about();
+        unset($abouts->sections[intval($id)]);
+        $abouts->sections = array_flatten($abouts->sections);
 
-        return $this->showAbout();
+        return Configuration::about($abouts) ? $this->successResponse([
+            'message' => '删除成功',
+        ]) : $this->errorResponse([
+            'message' => '删除失败',
+        ]);
     }
 
 
@@ -178,19 +182,6 @@ class AdminController extends Controller {
      */
     public function editAbout(Request $request, $id)
     {
-//        $this->validate($request, [
-//            'header'  => 'required',
-//            'content' => 'required',
-//        ]);
-//        $abouts = $this->getAboutData();
-//        $abouts[$id]->header = $request->input('header');
-//        $abouts[$id]->content = $request->input('content');
-//
-//        return $this->updateAboutData($abouts) ?
-//            $this->showAbout() :
-//            $this->errorResponse([
-//                'message' => '修改失败'
-//            ]);
         switch($id){
             case 'header':
                 $this->validate($request,[
@@ -241,9 +232,8 @@ class AdminController extends Controller {
         ]);
 
         $abouts = $this->getAboutData();
-        array_push($abouts, ["header" => $request->input('header'), "content" => $request->input('content')]);
-        $this->updateAboutData($abouts);
-
+        array_push($abouts, ["title" => $re quest->input('title'), "body" => $request->input('body')]);
+        dd(count($abouts));
         return $this->showAbout();
     }
 }

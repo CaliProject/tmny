@@ -16,7 +16,7 @@ trait APIResponse {
     {
         return request()->ajax() ?
             $this->ajaxSuccessResponse($attributes) :
-            redirect()->intended()->with($this->ajaxSuccessResponse());
+            redirect()->back()->with($this->ajaxSuccessResponse());
     }
 
     /**
@@ -31,7 +31,7 @@ trait APIResponse {
     {
         return request()->ajax() ?
             $this->ajaxErrorResponse($attributes) :
-            redirect()->intended()->with($this->ajaxErrorResponse());
+            redirect()->back()->with($this->ajaxErrorResponse());
     }
 
     /**
