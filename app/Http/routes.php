@@ -64,6 +64,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     // Contact routes.
     Route::group(['prefix' => 'contact'], function () {
         Route::get('/', 'AdminController@showContact');
+        Route::patch('{operation}','AdminController@editContact');
     });
 
     // Portfolio route.

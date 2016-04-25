@@ -387,9 +387,10 @@ class AdminController extends Controller {
      */
     public function showContact()
     {
-        $contact = Configuration::contact();
+        $details = Configuration::contact()->details;
+        $header = $this->interpolateObj(['title' => Configuration::contact()->title,'caption' => Configuration::contact()->caption]);
 
-        return view('admin.contact.home', compact('contact'));
+        return view('admin.contact.home', ['header' => $header,'details' => $details]);
     }
 
     /**
@@ -674,4 +675,42 @@ class AdminController extends Controller {
         
         return $this->successResponse('更新成功');
     }
+
+    public function updateContact($request,$id = null)
+    {
+
+    }
+
+    public function editContact(Request $request,$operation)
+    {
+        switch($operation){
+            case 'header':
+                $this->validate($request,[
+                    'title' => 'required',
+                    'caption' => 'required'
+                ]);
+                $contact = Configuration::contact();
+                $contact->title = $request->input('title');
+                $contact->caption = $request->input('caption');
+
+                return Configuration::contact($contact) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
+            case 'edit':
+                $this->validate($request,[
+                    'tel' => 'required',
+                    'url' => 'required',
+                    'address' => 'required',
+                    'company' => 'required',
+                    'slogan' => 'required'
+                ]);
+                $contact = Configuration::contact();
+                $contact->details->tel = $request->input('tel');
+                $contact->details->url = $request->input('url');
+                $contact->details->address = $request->input('address');
+                $contact->details->company = $request->input('company');
+                $contact->details->slogan = $request->input('slogan');
+
+                return Configuration::contact($contact) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
+        }
+    }
+
 }

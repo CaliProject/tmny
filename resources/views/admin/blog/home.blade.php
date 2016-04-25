@@ -23,7 +23,7 @@
         </div>
     </div>
     @foreach($blog->posts as $id => $post)
-        <div class="col-md-6">
+        <div class="col-md-6" style="clear: {{ $id % 2 === 0 ? 'left' : 'right' }}">
             <div class="panel panel-success">
                 <div class="panel-heading">
                     <h4 class="panel-title">{{ $post->title }}</h4>
