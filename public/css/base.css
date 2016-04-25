@@ -1070,7 +1070,8 @@ input.button:hover {
 }
 
 #nostalgia-tab-icon {
-    background: url("/images/logo.png");
+    background: url("/images/logo.png") no-repeat;
+    background-size: 210px 210px;
 }
 
 /******************************************************************/
