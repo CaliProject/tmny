@@ -24,7 +24,8 @@
                     <div class="form-group{{ $errors->has('title') ? 'has-error' : '' }}">
                         <label for="title" class="col-md-2 control-label">头部标题</label>
                         <div class="col-md-9">
-                            <input type="text" class="form-control" id="title" name="title" value="{{ $header->title }}">
+                            <input type="text" class="form-control" id="title" name="title"
+                                   value="{{ $header->title }}">
                             @if($errors->has('title'))
                                 <div class="help-block">
                                     <span>{{ $errors->first('title') }}</span>
@@ -35,7 +36,8 @@
                     <div class="form-group{{ $errors->has('caption') ? 'has-error' : '' }}">
                         <label for="caption" class="col-md-2 control-label">头部内容</label>
                         <div class="col-md-9">
-                            <textarea name="caption" id="caption" class="form-control" cols="30" rows="10">{{ $header->caption }}</textarea>
+                            <textarea name="caption" id="caption" class="form-control" cols="30"
+                                      rows="10">{{ $header->caption }}</textarea>
                             @if($errors->has('caption'))
                                 <div class="help-block">
                                     <span>{{ $errors->first('caption') }}</span>
@@ -48,44 +50,14 @@
                 </form>
             </div>
         </div>
-        @foreach($provides as $id => $provide)
-            <div class="col-md-12">
-                <div class="panel panel-success">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">板块#{{ $id+1 }}</h4>
-                    </div>
-                    <div class="panel-body">
-                        <form action="{{ url('admin/services/'.$id) }}" method="post" class="form-horizontal" role="form">
-                            {{ csrf_field() }}
-                            {{ method_field('patch') }}
-                            <div class="form-group{{ $errors->has('title') ? 'has-error' : '' }}">
-                                <label for="title" class="col-md-2 control-label">板块标题</label>
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control" id="title" name="title" value="{{ $provide->title }}">
-                                    @if($errors->has('title'))
-                                        <div class="help-block">
-                                            <span>{{ $errors->first('title') }}</span>
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="form-group{{ $errors->has('body') ? 'has-error' : '' }}">
-                                <label for="body" class="col-md-2 control-label">板块内容</label>
-                                <div class="col-md-9">
-                                    <textarea name="body" id="body" class="form-control" cols="30" rows="10">{{ $provide->body }}</textarea>
-                                    @if($errors->has('body'))
-                                        <div class="help-block">
-                                            <span>{{ $errors->first('body') }}</span>
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-                            <hr>
-                            <button type="submit" class="btn btn-primary btn-block">确认修改</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        @endforeach
     </div>
+    @foreach($provides as $id => $provide)
+        @include('admin.services.partials.form', [
+            'title' => "板块#" . ($id + 1),
+            'method' => 'PATCH',
+            'url' => url('admin/services/' . $id),
+            'button' => '确定修改',
+            'provide' => $provide
+        ])
+    @endforeach
 @stop

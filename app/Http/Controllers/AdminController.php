@@ -22,7 +22,7 @@ class AdminController extends Controller {
     }
 
     /**
-     * interpolate the object
+     * Interpolates the object
      * 转换成一个对象
      *
      * @param $arr
@@ -34,7 +34,7 @@ class AdminController extends Controller {
     }
 
     /**
-     * SHow update password page.
+     * Show update password page.
      *
      * @return mixed
      */
@@ -93,7 +93,7 @@ class AdminController extends Controller {
     }
 
     /**
-     * update the data of the about
+     * Update the data of the about
      * 更新about的data数据
      *
      * @param $request
@@ -179,11 +179,8 @@ class AdminController extends Controller {
                     'caption' => 'required',
                 ]);
 
-                return $this->updateAbout($request) ? $this->successResponse([
-                    'message' => '修改成功',
-                ]) : $this->errorResponse([
-                    'message' => '修改失败',
-                ]);
+                return $this->updateAbout($request) ?
+                    $this->successResponse('修改成功') : $this->errorResponse('修改失败');
                 break;
             default:
                 $this->validate($request, [
@@ -191,11 +188,8 @@ class AdminController extends Controller {
                     'body'  => 'required',
                 ]);
 
-                return $this->updateAbout($request, $id) ? $this->successResponse([
-                    'message' => '修改成功',
-                ]) : $this->errorResponse([
-                    'message' => '修改失败',
-                ]);
+                return $this->updateAbout($request, $id) ?
+                    $this->successResponse('修改成功') : $this->errorResponse('修改失败');
                 break;
         }
     }
@@ -226,15 +220,11 @@ class AdminController extends Controller {
         $abouts = Configuration::about();
         array_push($abouts->sections, ["title" => $request->input('title'), "body" => $request->input('body')]);
 
-        return Configuration::about($abouts) ? $this->successResponse([
-            'message' => '添加成功'
-        ]) : $this->errorResponse([
-            'message' => '添加失败'
-        ]);
+        return Configuration::about($abouts) ? $this->successResponse('添加成功') : $this->errorResponse('添加失败');
     }
 
     /**
-     * get services data
+     * Get services data
      * 获取services的数据
      *
      * @return mixed
@@ -246,7 +236,7 @@ class AdminController extends Controller {
     }
 
     /**
-     * get services header
+     * Get services header
      * 获取services的头部信息
      *
      * @return mixed
@@ -257,7 +247,7 @@ class AdminController extends Controller {
     }
 
     /**
-     * update services data
+     * Update services data
      * 修改services的数据
      *
      * @param $request
@@ -275,15 +265,11 @@ class AdminController extends Controller {
             $services->provides[$id]->body = $request->body;
         }
 
-        return Configuration::services($services) ? $this->successResponse([
-            'message' => '修改成功'
-        ]) : $this->errorResponse([
-            'message' => '修改失败'
-        ]);
+        return Configuration::services($services) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
     }
 
     /**
-     * show services page
+     * Show services page
      * 显示services的所有页面
      *
      * @param $operation 哪一个页面
@@ -301,7 +287,7 @@ class AdminController extends Controller {
     }
 
     /**
-     * edit services header or provides
+     * Edit services header or provides
      * 编辑services的头部或者provides
      *
      * @param Request $request
@@ -331,7 +317,7 @@ class AdminController extends Controller {
     }
 
     /**
-     * add a services
+     * Add a service
      * 添加services板块
      *
      * @param Request $request
@@ -346,16 +332,11 @@ class AdminController extends Controller {
         $services = Configuration::services();
         array_push($services->provides,['title' => $request->input('title'),'body' => $request->input('body')]);
 
-        return Configuration::services($services) ? $this->successResponse([
-            'message' => '添加成功'
-        ]) : $this->errorResponse([
-            'message' => '添加失败'
-        ]);
-
+        return Configuration::services($services) ? $this->successResponse('添加成功') : $this->errorResponse('添加失败');
     }
 
     /**
-     * delete a services
+     * Delete a service
      * 删除services的一个板块
      *
      * @param $id
@@ -367,11 +348,6 @@ class AdminController extends Controller {
         unset($services->provides[intval($id)]);
         $services->provides = array_flatten($services->provides);
 
-        return Configuration::services($services) ? $this->successResponse([
-            'message' => '删除成功'
-        ]) : $this->errorResponse([
-            'message' => '删除失败'
-        ]);
+        return Configuration::services($services) ? $this->successResponse('删除成功') : $this->errorResponse('删除失败');
     }
-
 }
