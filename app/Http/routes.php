@@ -43,4 +43,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::patch('{id}','AdminController@editServices');
         Route::delete('{id}','AdminController@deleteServices');
     });
+    Route::group(['prefix' => 'portfolio'],function (){
+        Route::get('{operation}','AdminController@showPortfolio');
+        Route::post('add','AdminController@addPortfolio');
+        Route::patch('{id}','AdminController@editPortfolio');
+        Route::delete('{id}','AdminController@deletePortfolio');
+    });
 });
