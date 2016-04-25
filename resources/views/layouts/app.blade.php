@@ -6,7 +6,7 @@
     <title>天美农业</title>
 
     <meta name="keywords" content="天美农业,天美荔枝">
-    <meta name="description" content="天美，让你生活天天美好！">
+    <meta name="description" content="{{ $slogan }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <link rel="icon" href="/images/logo.png">
@@ -37,38 +37,38 @@
             "about": {
                 "title": "关于天美 - 天美农业",
                 "keywords": "天美农业,天美荔枝",
-                "description": "天美，让你生活天天美好！"
+                "description": "{{ $slogan }}"
             },
             "services": {
                 "title": "产业链条 - 天美农业",
                 "keywords": "天美农业,天美荔枝",
-                "description": "天美，让你生活天天美好！"
+                "description": "{{ $slogan }}"
             },
             "portfolio": {
                 "title": "时令产品 - 天美农业",
                 "keywords": "天美农业,天美荔枝",
-                "description": "天美，让你生活天天美好！"
+                "description": "{{ $slogan }}"
             },
             "blog": {
                 "title": "新鲜生活 - 天美农业",
                 "keywords": "天美农业,天美荔枝",
-                "description": "天美，让你生活天天美好！"
+                "description": "{{ $slogan }}"
             },
             "contact": {
                 "title": "联系天美 - 天美农业",
                 "keywords": "天美农业,天美荔枝",
-                "description": "天美，让你生活天天美好！"
+                "description": "{{ $slogan }}"
             },
             "basement": {
                 "title": "时令基地 - 天美农业",
                 "keywords": "天美农业,天美荔枝",
-                "description": "天美，让你生活天天美好！"
+                "description": "{{ $slogan }}"
             }
         };
         var configDefault = {
             "title": "天美农业",
             "keywords": "天美农业,天美荔枝",
-            "description": "天美，让你生活天天美好！"
+            "description": "{{ $slogan }}"
         };
         var mainURL = '/';
     </script>
@@ -194,7 +194,7 @@
 
                 <div class="nostalgia-tab-footer-caption">
 
-                    <span class="float-left"><a href="{{ url('/') }}">天美，让你生活天天美好！</a></span>
+                    <span class="float-left"><a href="{{ url('/') }}">{{ $slogan }}</a></span>
                     <span class="float-right"><a href="{{ url('/') }}">{{ date('Y') }} &copy; 天美农业&nbsp;粤ICP备16034891</a></span>
 
                 </div>
