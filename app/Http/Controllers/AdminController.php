@@ -714,5 +714,4 @@ class AdminController extends Controller {
                 return Configuration::contact($contact) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
         }
     }
-
 }
