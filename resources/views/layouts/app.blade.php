@@ -13,24 +13,24 @@
     <link rel="shortcut icon" href="/images/logo.png">
 
     <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/jquery.qtip.css">
-    <link rel="stylesheet" href="/css/jquery.jScrollPane.css">
-    <link rel="stylesheet" href="/css/jquery-ui.min.css">
-    <link rel="stylesheet" href="/css/supersized.css">
-    <link rel="stylesheet" href="/css/jquery.fancybox.css">
-    <link rel="stylesheet" href="/css/jquery.fancybox-buttons.css">
-    <link rel="stylesheet" href="/css/base.css">
-    <link rel="stylesheet" href="/css/page.css">
+    <link rel="stylesheet" href="{{ url('/css/jquery.qtip.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/jquery.jScrollPane.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/supersized.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/jquery.fancybox.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/jquery.fancybox-buttons.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/base.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/page.css') }}">
 
-    <link rel="stylesheet" media="screen and (max-width:550px)" href="/css/responsive-0-550.css">
+    <link rel="stylesheet" media="screen and (max-width:550px)" href="{{ url('/css/responsive-0-550.css') }}">
     <link rel="stylesheet" media="screen and (min-width:480px) and (max-width:550px)"
-          href="/css/responsive-480-550.css">
-    <link rel="stylesheet" media="screen and (max-width:479px)" href="/css/responsive-0-479.css">
-    <link rel="stylesheet" media="screen and (max-height:510px)" href="/css/responsive-height-0-510.css">
+          href="{{ url('/css/responsive-480-550.css') }}">
+    <link rel="stylesheet" media="screen and (max-width:479px)" href="{{ url('/css/responsive-0-479.css') }}">
+    <link rel="stylesheet" media="screen and (max-height:510px)" href="{{ url('/css/responsive-height-0-510.css') }}">
 
-    <link rel="stylesheet" href="/css/css.css">
-    <link rel="stylesheet" href="/css/css(1).css">
-    <link rel="stylesheet" href="/css/css(2).css">
+    <link rel="stylesheet" href="{{ url('/css/css.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/css(1).css') }}">
+    <link rel="stylesheet" href="{{ url('/css/css(2).css') }}">
 
     <script>
         var config = {
@@ -73,8 +73,8 @@
         var mainURL = '/';
     </script>
 
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/jquery-migrate.min.js"></script>
+    <script src="{{ url('/js/jquery.min.js') }}"></script>
+    <script src="{{ url('/js/jquery-migrate.min.js') }}"></script>
 
     <style>
         .fancybox-margin {
@@ -187,7 +187,7 @@
                     <li style="position:relative;">
                         <a class="social-wechat" href="#"><i class="fa fa-wechat fa-2x" style="color: #fff;"></i></a>
                         <div class="qrcode-wrapper">
-                            <img src="/images/qrcode.jpg" alt="" class="qrcode">
+                            <img src="{{ url('/images/qrcode.jpg') }}" alt="" class="qrcode">
                         </div>
                     </li>
                 </ul>
@@ -244,31 +244,31 @@
 
 <!-- JPlayer -->
 <div id="jPlayer" style="width: 0px; height: 0px;"><img id="jp_poster_0" style="width: 0px; height: 0px; display: none;">
-    <audio id="jp_audio_0" preload="metadata" src="/Kondor-Love-Your-Life-Outro-track.mp3"></audio>
+    <audio id="jp_audio_0" preload="metadata" src="{{ url('/Kondor-Love-Your-Life-Outro-track.mp3') }}"></audio>
 </div>
         <!-- /JPlayer -->
 
-<script src="/js/jquery-ui.min.js"></script>
-<script src="/js/jquery.easing.js"></script>
-<script src="/js/jquery.blockUI.js"></script>
-<script src="/js/jquery.qtip.min.js"></script>
-<script src="/js/jquery.ba-bqq.min.js"></script>
+<script src="{{ url('/js/jquery-ui.min.js') }}"></script>
+<script src="{{ url('/js/jquery.easing.js') }}"></script>
+<script src="{{ url('/js/jquery.blockUI.js') }}"></script>
+<script src="{{ url('/js/jquery.qtip.min.js') }}"></script>
+<script src="{{ url('/js/jquery.ba-bqq.min.js') }}"></script>
 <script
-        src="/js/jquery.jplayer.min.js"></script>
+        src="{{ url('/js/jquery.jplayer.min.js') }}"></script>
 <script
-        src="/js/jquery.mousewheel.min.js"></script>
-<script src="/js/jquery.supersized.min.js"></script>
-<script src="/js/jquery.jScrollPane.min.js"></script>
-<script src="/js/jquery.supersized.shutter.min.js"></script>
-<script src="/js/jquery.carouFredSel.packed.js"></script>
-<script src="/js/jquery.fancybox.js"></script>
-<script src="/js/jquery.fancybox-media.js"></script>
-<script src="/js/jquery.fancybox-buttons.js"></script>
+        src="{{ url('/js/jquery.mousewheel.min.js') }}"></script>
+<script src="{{ url('/js/jquery.supersized.min.js') }}"></script>
+<script src="{{ url('/js/jquery.jScrollPane.min.js') }}"></script>
+<script src="{{ url('/js/jquery.supersized.shutter.min.js') }}"></script>
+<script src="{{ url('/js/jquery.carouFredSel.packed.js') }}"></script>
+<script src="{{ url('/js/jquery.fancybox.js') }}"></script>
+<script src="{{ url('/js/jquery.fancybox-media.js') }}"></script>
+<script src="{{ url('/js/jquery.fancybox-buttons.js') }}"></script>
 
-<script src="/js/script.js"></script>
-<script src="/js/nostalgia.js"></script>
-<script src="/js/main.js"></script>
-<script src="/js/contact-form.js"></script>
+<script src="{{ url('/js/script.js') }}"></script>
+<script src="{{ url('/js/nostalgia.js') }}"></script>
+<script src="{{ url('/js/main.js') }}"></script>
+<script src="{{ url('/js/contact-form.js') }}"></script>
 
 </body>
 </html>

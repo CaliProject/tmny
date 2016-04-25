@@ -62,4 +62,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::group(['prefix' => 'contact'], function () {
         Route::get('/', 'AdminController@showContact');
     });
+
+    // Portfolio route.
+    Route::group(['prefix' => 'portfolio'],function () {
+        Route::get('{operation}', 'AdminController@showPortfolio');
+        Route::post('add', 'AdminController@addPortfolio');
+        Route::patch('{id}', 'AdminController@editPortfolio');
+        Route::delete('{id}', 'AdminController@deletePortfolio');
+    });
 });

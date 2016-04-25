@@ -12,7 +12,7 @@
         </a>
     </li>
     <li{{ request()->is('admin/portfolio*') ? ' class=active' : '' }}>
-        <a href="{{ url('admin/portfolio') }}">
+        <a href="{{ url('admin/portfolio/home') }}">
             时令产品
             <i class="fa fa-chevron-right"></i>
         </a>

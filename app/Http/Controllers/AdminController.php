@@ -400,4 +400,149 @@ class AdminController extends Controller {
 
         return $this->successResponse('内容修改成功');
     }
+
+    /*
+     * Get portfolio data
+     * 获取portfolio的data数据
+     *
+     * @return mixed
+     */
+    public function getPortfolioData()
+    {
+        return Configuration::portfolio()->products;
+    }
+
+    /**
+     * Get portfolio header
+     * 获取portfolio的头部数据
+     *
+     * @return mixed
+     */
+    public function getPortfolioHeader()
+    {
+        return $this->interpolateObj(['title' => Configuration::portfolio()->title, 'caption' => Configuration::portfolio()->caption]);
+    }
+
+    /**
+     * Update portfolio data
+     * 修改portfolio的数据
+     *
+     * @param      $request
+     * @param null $id
+     * @return array
+     */
+    public function updatePortfolio($request, $id = null)
+    {
+        $portfolio = Configuration::portfolio();
+        if (is_null($id)) {
+            $portfolio->title = $request->title;
+            $portfolio->caption = $request->caption;
+        } else {
+            $portfolio->products[$id]->name = $request->name;
+            $portfolio->products[$id]->caption = $request->caption;
+            if (is_null($request->file('image'))) {
+                $portfolio->products[$id]->image = $request->old_image;
+            } else {
+                $file = $request->file('image');
+                $name = sha1(time() . $file->getClientOriginalName()) . '.' . $file->extension();
+                $file->move('uploads', $name);
+                $uri = '/uploads/' . $name;
+                $portfolio->products[$id]->image = $uri;
+            }
+        }
+
+        return Configuration::portfolio($portfolio) ? $this->successResponse([
+            'message' => '修改成功'
+        ]) : $this->errorResponse([
+            'message' => '修改失败'
+        ]);
+    }
+
+    /**
+     * Show portfolio page
+     * 显示portfolio的所有页面
+     *
+     * @param $operation
+     * @return mixed
+     */
+    public function showPortfolio($operation)
+    {
+        if ($operation != 'add') {
+            $products = $this->getPortfolioData();
+            $header = $this->getPortfolioHeader();
+
+            return view('admin.portfolio.' . $operation, ['products' => $products, 'header' => $header]);
+        } else {
+            return view('admin.portfolio.' . $operation);
+        }
+    }
+
+    /**
+     * Add a portfolio.
+     * 
+     * @param Request $request
+     * @return array
+     */
+    public function addPortfolio(Request $request)
+    {
+        $this->validate($request, [
+            'name'    => 'required',
+            'caption' => 'required',
+            'image'   => 'required'
+        ]);
+        $file = $request->file('image');
+        $name = sha1(time() . $file->getClientOriginalName()) . '.' . $file->extension();
+        $file->move('uploads', $name);
+        $uri = '/uploads/' . $name;
+
+        $portfolio = Configuration::portfolio();
+        array_push($portfolio->products, ['name' => $request->input('name'), 'caption' => $request->input('caption'), 'image' => $uri]);
+
+        return Configuration::portfolio($portfolio) ? $this->successResponse('添加成功') : $this->errorResponse('添加失败');
+    }
+
+    /**
+     * Edit a portfolio.
+     * 
+     * @param Request $request
+     * @param         $id
+     * @return array
+     */
+    public function editPortfolio(Request $request, $id)
+    {
+        switch ($id) {
+            case 'header':
+                $this->validate($request, [
+                    'title'   => 'required',
+                    'caption' => 'required'
+                ]);
+
+                return $this->updatePortfolio($request);
+                break;
+            default:
+                $this->validate($request, [
+                    'name'    => 'required',
+                    'caption' => 'required',
+                ]);
+
+                return $this->updatePortfolio($request, $id);
+                break;
+        }
+
+    }
+
+    /**
+     * Deletes a portfolio.
+     * 
+     * @param $id
+     * @return array
+     */
+    public function deletePortfolio($id)
+    {
+        $portfolio = Configuration::portfolio();
+        unset($portfolio->products[$id]);
+        $portfolio->products = array_flatten($portfolio->products);
+
+        return Configuration::portfolio($portfolio) ? $this->successResponse('删除成功') : $this->errorResponse('删除失败');
+    }
 }
