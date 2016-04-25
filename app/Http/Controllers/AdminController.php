@@ -388,9 +388,9 @@ class AdminController extends Controller {
     public function showContact()
     {
         $details = Configuration::contact()->details;
-        $header = $this->interpolateObj(['title' => Configuration::contact()->title,'caption' => Configuration::contact()->caption]);
+        $header = $this->interpolateObj(['title' => Configuration::contact()->title, 'caption' => Configuration::contact()->caption]);
 
-        return view('admin.contact.home', ['header' => $header,'details' => $details]);
+        return view('admin.contact.home', ['header' => $header, 'details' => $details]);
     }
 
     /**
@@ -592,7 +592,7 @@ class AdminController extends Controller {
 
     /**
      * Updates the blog post.
-     * 
+     *
      * @param Request $request
      * @param         $id
      * @return array
@@ -672,21 +672,23 @@ class AdminController extends Controller {
 
         $file = $request->file('music');
         $file->move('page', 'music.mp3');
-        
+
         return $this->successResponse('更新成功');
     }
 
-    public function updateContact($request,$id = null)
+    /**
+     * Edit the contact.
+     *
+     * @param Request $request
+     * @param         $operation
+     * @return array
+     */
+    public function editContact(Request $request, $operation)
     {
-
-    }
-
-    public function editContact(Request $request,$operation)
-    {
-        switch($operation){
+        switch ($operation) {
             case 'header':
-                $this->validate($request,[
-                    'title' => 'required',
+                $this->validate($request, [
+                    'title'   => 'required',
                     'caption' => 'required'
                 ]);
                 $contact = Configuration::contact();
@@ -695,12 +697,12 @@ class AdminController extends Controller {
 
                 return Configuration::contact($contact) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
             case 'edit':
-                $this->validate($request,[
-                    'tel' => 'required',
-                    'url' => 'required',
+                $this->validate($request, [
+                    'tel'     => 'required',
+                    'url'     => 'required',
                     'address' => 'required',
                     'company' => 'required',
-                    'slogan' => 'required'
+                    'slogan'  => 'required'
                 ]);
                 $contact = Configuration::contact();
                 $contact->details->tel = $request->input('tel');
