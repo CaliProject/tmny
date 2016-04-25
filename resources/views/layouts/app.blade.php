@@ -244,7 +244,7 @@
 
 <!-- JPlayer -->
 <div id="jPlayer" style="width: 0px; height: 0px;"><img id="jp_poster_0" style="width: 0px; height: 0px; display: none;">
-    <audio id="jp_audio_0" preload="metadata" src="{{ url('/Kondor-Love-Your-Life-Outro-track.mp3') }}"></audio>
+    <audio id="jp_audio_0" preload="metadata" src="{{ url('/page/music.mp3') }}"></audio>
 </div>
 <!-- /JPlayer -->
 

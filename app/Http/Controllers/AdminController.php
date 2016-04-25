@@ -162,7 +162,6 @@ class AdminController extends Controller {
         ]);
     }
 
-
     /**
      * Edit about.
      *
@@ -646,5 +645,33 @@ class AdminController extends Controller {
         $uri = '/uploads/' . $name;
 
         return $uri;
+    }
+
+    /**
+     * Show music page.
+     *
+     * @return mixed
+     */
+    public function showMusic()
+    {
+        return view('admin.music');
+    }
+
+    /**
+     * Updates the music.
+     *
+     * @param Request $request
+     * @return array
+     */
+    public function updateMusic(Request $request)
+    {
+        $this->validate($request, [
+            'music' => 'required'
+        ]);
+
+        $file = $request->file('music');
+        $file->move('page', 'music.mp3');
+        
+        return $this->successResponse('更新成功');
     }
 }

@@ -40,7 +40,7 @@ $(document).ready(function () {
 
     var audio =
         [
-            {mp3: '/Kondor-Love-Your-Life-Outro-track.mp3'}
+            {mp3: '/page/music.mp3'}
         ];
 
     var page =

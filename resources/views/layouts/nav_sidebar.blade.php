@@ -41,4 +41,10 @@
             <i class="fa fa-user"></i>
         </a>
     </li>
+    <li{{ request()->is('admin/music') ? ' class=active' : '' }}>
+        <a href="{{ url('admin/music') }}">
+            背景音乐
+            <i class="fa fa-music"></i>
+        </a>
+    </li>
 </ul>

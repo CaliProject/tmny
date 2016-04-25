@@ -73,4 +73,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::patch('{id}', 'AdminController@editPortfolio');
         Route::delete('{id}', 'AdminController@deletePortfolio');
     });
+    
+    Route::get('music', 'AdminController@showMusic');
+    Route::patch('music', 'AdminController@updateMusic');
 });
