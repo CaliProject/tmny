@@ -47,7 +47,9 @@ class HomeController extends Controller
      */
     public function showPortfolio()
     {
-        return view('portfolio');
+        $portfolio = Configuration::portfolio();
+
+        return view('portfolio', compact('portfolio'));
     }
 
     /**
@@ -57,7 +59,9 @@ class HomeController extends Controller
      */
     public function showBlog()
     {
-        return view('blog');
+        $blog = Configuration::blog();
+
+        return view('blog', compact('blog'));
     }
 
     /**

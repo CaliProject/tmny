@@ -55,7 +55,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     
     // Blog routes.
     Route::group(['prefix' => 'blog'], function () {
-        Route::get('/', 'AdminController@showBlog');
+        Route::get('{operation}', 'AdminController@showBlog');
+        Route::post('add', 'AdminController@addBlog');
+        Route::patch('{id}', 'AdminController@editBlog');
+        Route::delete('{id}', 'AdminController@deleteBlog');
     });
     
     // Contact routes.

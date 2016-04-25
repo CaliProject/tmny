@@ -24,7 +24,7 @@
         </a>
     </li>
     <li{{ request()->is('admin/blog*') ? ' class=active' : '' }}>
-        <a href="{{ url('admin/blog') }}">
+        <a href="{{ url('admin/blog/home') }}">
             新鲜生活
             <i class="fa fa-chevron-right"></i>
         </a>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Hash;
+use Carbon\Carbon;
 use App\Configuration;
 use App\Traits\APIResponse;
 use Illuminate\Http\Request;
@@ -366,13 +367,18 @@ class AdminController extends Controller {
     /**
      * Show blog page.
      *
+     * @param null $operation
      * @return mixed
      */
-    public function showBlog()
+    public function showBlog($operation = null)
     {
-        $blog = Configuration::blog();
+        if ($operation != 'add') {
+            $blog = Configuration::blog();
 
-        return view('admin.blog.home', compact('blog'));
+            return view('admin.blog.' . $operation, compact('blog'));
+        }
+
+        return view('admin.blog.' . $operation);
     }
 
     /**
@@ -443,19 +449,12 @@ class AdminController extends Controller {
             if (is_null($request->file('image'))) {
                 $portfolio->products[$id]->image = $request->old_image;
             } else {
-                $file = $request->file('image');
-                $name = sha1(time() . $file->getClientOriginalName()) . '.' . $file->extension();
-                $file->move('uploads', $name);
-                $uri = '/uploads/' . $name;
+                $uri = $this->moveFile($request);
                 $portfolio->products[$id]->image = $uri;
             }
         }
 
-        return Configuration::portfolio($portfolio) ? $this->successResponse([
-            'message' => '修改成功'
-        ]) : $this->errorResponse([
-            'message' => '修改失败'
-        ]);
+        return Configuration::portfolio($portfolio) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
     }
 
     /**
@@ -479,7 +478,7 @@ class AdminController extends Controller {
 
     /**
      * Add a portfolio.
-     * 
+     *
      * @param Request $request
      * @return array
      */
@@ -490,10 +489,7 @@ class AdminController extends Controller {
             'caption' => 'required',
             'image'   => 'required'
         ]);
-        $file = $request->file('image');
-        $name = sha1(time() . $file->getClientOriginalName()) . '.' . $file->extension();
-        $file->move('uploads', $name);
-        $uri = '/uploads/' . $name;
+        $uri = $this->moveFile($request);
 
         $portfolio = Configuration::portfolio();
         array_push($portfolio->products, ['name' => $request->input('name'), 'caption' => $request->input('caption'), 'image' => $uri]);
@@ -503,7 +499,7 @@ class AdminController extends Controller {
 
     /**
      * Edit a portfolio.
-     * 
+     *
      * @param Request $request
      * @param         $id
      * @return array
@@ -518,7 +514,6 @@ class AdminController extends Controller {
                 ]);
 
                 return $this->updatePortfolio($request);
-                break;
             default:
                 $this->validate($request, [
                     'name'    => 'required',
@@ -526,14 +521,12 @@ class AdminController extends Controller {
                 ]);
 
                 return $this->updatePortfolio($request, $id);
-                break;
         }
-
     }
 
     /**
      * Deletes a portfolio.
-     * 
+     *
      * @param $id
      * @return array
      */
@@ -544,5 +537,114 @@ class AdminController extends Controller {
         $portfolio->products = array_flatten($portfolio->products);
 
         return Configuration::portfolio($portfolio) ? $this->successResponse('删除成功') : $this->errorResponse('删除失败');
+    }
+
+    /**
+     * Add a blog post.
+     *
+     * @param Request $request
+     * @return array
+     */
+    public function addBlog(Request $request)
+    {
+        $this->validate($request, [
+            'title' => 'required',
+            'body'  => 'required',
+            'image' => 'required'
+        ]);
+        $uri = $this->moveFile($request);
+
+        $blog = Configuration::blog();
+        array_push($blog->posts, [
+            'title' => $request->input('title'),
+            'body'  => $request->input('body'),
+            'image' => $uri,
+            'time'  => Carbon::now()->toDateTimeString()
+        ]);
+
+        return Configuration::blog($blog) ? $this->successResponse('添加成功') : $this->errorResponse('添加失败');
+    }
+
+    /**
+     * @param Request $request
+     * @param         $id
+     * @return array
+     */
+    public function editBlog(Request $request, $id)
+    {
+        switch ($id) {
+            case 'header':
+                $this->validate($request, [
+                    'title'   => 'required',
+                    'caption' => 'required'
+                ]);
+
+                return $this->updateBlog($request);
+            default:
+                $this->validate($request, [
+                    'title' => 'required',
+                    'body'  => 'required',
+                ]);
+
+                return $this->updateBlog($request, $id);
+        }
+    }
+
+    /**
+     * Updates the blog post.
+     * 
+     * @param Request $request
+     * @param         $id
+     * @return array
+     */
+    public function updateBlog(Request $request, $id = null)
+    {
+        $blog = Configuration::blog();
+        if (is_null($id)) {
+            $blog->title = $request->title;
+            $blog->caption = $request->caption;
+        } else {
+            $blog->posts[$id]->title = $request->title;
+            $blog->posts[$id]->body = $request->body;
+            if (is_null($request->file('image'))) {
+                $blog->posts[$id]->image = $request->old_image;
+            } else {
+                $uri = $this->moveFile($request);
+                $blog->posts[$id]->image = $uri;
+            }
+        }
+
+        return Configuration::blog($blog) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
+    }
+
+    /**
+     * Deletes a blog post.
+     *
+     * @param $id
+     * @return array
+     */
+    public function deleteBlog($id)
+    {
+        $blog = Configuration::blog();
+        unset($blog->posts[$id]);
+        $blog->posts = array_flatten($blog->posts);
+
+        return Configuration::blog($blog) ? $this->successResponse('删除成功') : $this->errorResponse('删除失败');
+    }
+
+    /**
+     * Move the uploaded file.
+     *
+     * @param Request $request
+     * @return string
+     */
+    protected function moveFile(Request $request)
+    {
+        $file = $request->file('image');
+        $name = sha1(time() . $file->getClientOriginalName()) . '.' . $file->extension();
+        $file->move('uploads', $name);
+        $uri = '/uploads/' . $name;
+
+        return $uri;
     }
 }

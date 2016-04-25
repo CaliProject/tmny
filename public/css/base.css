@@ -1159,3 +1159,12 @@ input.button:hover {
 .basement-content img {
     max-width: 100%;
 }
+
+.social-wechat i {
+    color: #fff;
+    background: rgba(0,0,0,0.4);
+    padding: 5px;
+    border-radius: 8px;
+    position: relative;
+    top: -10px;
+}

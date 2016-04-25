@@ -200,7 +200,16 @@ class Configuration extends Model {
         ]);
 
         self::blog([
-            'title' => '新鲜生活',
+            'title'   => '新鲜生活',
+            'caption' => '新鲜生活',
+            'posts'    => [
+                [
+                    'title' => 'ALIQUAM VITAE AUGUE NON MI',
+                    'time'  => '2016-04-25 00:00:00',
+                    'image' => '',
+                    'body'  => 'Pellentesque sodales porta est, mattis placerat ligula blandit quis. In posuere consectetur eleifend. Integer at erat nunc, in rhoncus risus. Nulla facilisi. Aenean ultricies, neque nec pharetra volutpat, nunc tellus lacinia nunc, et accumsan eros nunc non tellus. Donec sed ullamcorper tortor. Suspendisse at ante ut tellus lacinia ultricies. Mauris aliquet pharetra leo tempus sagittis.'
+                ]
+            ]
         ]);
 
         self::contact([

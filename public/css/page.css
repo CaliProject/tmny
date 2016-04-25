@@ -79,13 +79,13 @@ p.subtitle-paragraph span.bold {
 .nostalgia-accordion .ui-state-default,
 .nostalgia-accordion .ui-widget-header .ui-state-default,
 .nostalgia-accordion .ui-widget-content .ui-state-default {
-    background: #000000 url('../image/icon_plus.png') right center no-repeat;
+    background: #000000 url('/images/icon_plus.png') right center no-repeat;
 }
 
 .nostalgia-accordion .ui-state-active,
 .nostalgia-accordion .ui-widget-header .ui-state-active,
 .nostalgia-accordion .ui-widget-content .ui-state-active {
-    background: transparent url('../image/icon_minus.png') right center no-repeat;
+    background: transparent url('/images/icon_minus.png') right center no-repeat;
 }
 
 .nostalgia-accordion .ui-state-active a {
@@ -109,11 +109,19 @@ ul.image-list li a {
 
 ul.image-list li {
     margin-bottom: 30px;
+    overflow: hidden;
 }
 
-ul.image-list li a {
+ul.image-list li a, .blog-list-post-image a {
     height: 150px;
     display: block;
+    background-size: cover !important;
+    background-position: center;
+    width: 100%;
+}
+
+ul.image-list li a img {
+    max-width: 100%;
 }
 
 ul.image-list li.left {
@@ -128,7 +136,7 @@ ul.image-list li.right {
 ul.image-list div.image-list-caption {
     padding: 10px;
     padding-right: 40px;
-    background: #000000 url('../image/icon_plus_yellow.png') 97% center no-repeat;
+    background: #000000 url('/images/icon_plus_yellow.png') 97% center no-repeat;
 }
 
 ul.image-list div.image-list-caption div.image-list-caption-subtitle {
@@ -147,7 +155,7 @@ a.fancybox-video {
     position: relative;
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    background-image: url('../image/preloader.gif');
+    background-image: url('/images/preloader.gif');
 }
 
 a.fancybox-image img,
@@ -189,11 +197,11 @@ a.fancybox-video:hover span {
 }
 
 a.fancybox-image span {
-    background-image: url('../image/thumb_image_overlay.png');
+    background-image: url('/images/thumb_image_overlay.png');
 }
 
 a.fancybox-video span {
-    background-image: url('../image/thumb_video_overlay.png');
+    background-image: url('/images/thumb_video_overlay.png');
 }
 
 /**************************************************************************/
@@ -365,12 +373,12 @@ ul.blog-list li.blog-list-post div.blog-list-post-image a.fancybox-video {
 
 div.post div.post-image a.fancybox-image span,
 ul.blog-list li.blog-list-post div.blog-list-post-image a.fancybox-image span {
-    background-image: url('../image/blog_thumb_image_overlay.png');
+    background-image: url('/images/blog_thumb_image_overlay.png');
 }
 
 div.post div.post-image a.fancybox-video span,
 ul.blog-list li.blog-list-post div.blog-list-post-image a.fancybox-video span {
-    background-image: url('../image/blog_thumb_video_overlay.png');
+    background-image: url('/images/blog_thumb_video_overlay.png');
 }
 
 /**************************************************************/
@@ -446,7 +454,7 @@ ul.blog-list li.blog-list-post a.read-more {
     padding-right: 20px;
     background-repeat: no-repeat;
     background-position: right center;
-    background-image: url('../image/icon_arrow.png');
+    background-image: url('/images/icon_arrow.png');
 }
 
 /**************************************************************************/
@@ -524,7 +532,7 @@ div.page-contact div.contact-details-about {
     background: #000000;
     background-repeat: no-repeat;
     background-position: 95% 95%;
-    background-image: url('../image/icon_plus_yellow.png');
+    background-image: url('/images/icon_plus_yellow.png');
 }
 
 div.page-contact div.contact-details-about ul {
@@ -561,5 +569,5 @@ div.page-contact div.contact-details-map div.contact-details-map-arrow {
     position: absolute;
     background-repeat: no-repeat;
     background-position: 0px 0px;
-    background-image: url('../image/icon_map_arrow.png');
+    background-image: url('/images/icon_map_arrow.png');
 }

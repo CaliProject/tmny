@@ -195,7 +195,7 @@
                 <div class="nostalgia-tab-footer-caption">
 
                     <span class="float-left"><a href="{{ url('/') }}">天美，让你生活天天美好！</a></span>
-                    <span class="float-right"><a href="{{ url('/') }}">{{ date('Y') }} &copy; 天美农业</a></span>
+                    <span class="float-right"><a href="{{ url('/') }}">{{ date('Y') }} &copy; 天美农业&nbsp;粤ICP备16034891</a></span>
 
                 </div>
 
@@ -246,17 +246,15 @@
 <div id="jPlayer" style="width: 0px; height: 0px;"><img id="jp_poster_0" style="width: 0px; height: 0px; display: none;">
     <audio id="jp_audio_0" preload="metadata" src="{{ url('/Kondor-Love-Your-Life-Outro-track.mp3') }}"></audio>
 </div>
-        <!-- /JPlayer -->
+<!-- /JPlayer -->
 
 <script src="{{ url('/js/jquery-ui.min.js') }}"></script>
 <script src="{{ url('/js/jquery.easing.js') }}"></script>
 <script src="{{ url('/js/jquery.blockUI.js') }}"></script>
 <script src="{{ url('/js/jquery.qtip.min.js') }}"></script>
 <script src="{{ url('/js/jquery.ba-bqq.min.js') }}"></script>
-<script
-        src="{{ url('/js/jquery.jplayer.min.js') }}"></script>
-<script
-        src="{{ url('/js/jquery.mousewheel.min.js') }}"></script>
+<script src="{{ url('/js/jquery.jplayer.min.js') }}"></script>
+<script src="{{ url('/js/jquery.mousewheel.min.js') }}"></script>
 <script src="{{ url('/js/jquery.supersized.min.js') }}"></script>
 <script src="{{ url('/js/jquery.jScrollPane.min.js') }}"></script>
 <script src="{{ url('/js/jquery.supersized.shutter.min.js') }}"></script>
@@ -264,7 +262,6 @@
 <script src="{{ url('/js/jquery.fancybox.js') }}"></script>
 <script src="{{ url('/js/jquery.fancybox-media.js') }}"></script>
 <script src="{{ url('/js/jquery.fancybox-buttons.js') }}"></script>
-
 <script src="{{ url('/js/script.js') }}"></script>
 <script src="{{ url('/js/nostalgia.js') }}"></script>
 <script src="{{ url('/js/main.js') }}"></script>
