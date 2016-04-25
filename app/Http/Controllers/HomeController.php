@@ -67,7 +67,9 @@ class HomeController extends Controller
      */
     public function showBasement()
     {
-        return view('basement');
+        $basement = Configuration::basement();
+
+        return view('basement', compact('basement'));
     }
 
     /**

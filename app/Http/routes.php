@@ -29,6 +29,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('password', 'AdminController@showUpdatePassword');
     Route::patch('password', 'AdminController@updatePassword');
 
+    // About routes.
     Route::group(['prefix' => 'about'], function () {
         Route::get('/', 'AdminController@showAbout');
         Route::get('edit', 'AdminController@showEditAbout');
@@ -37,10 +38,28 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::get('add', 'AdminController@showAddAbout');
         Route::post('add', 'AdminController@addAbout');
     });
+    
+    // Services routes.
     Route::group(['prefix' => 'services'],function () {
         Route::get('{operation}','AdminController@showServices');
         Route::post('add','AdminController@addServices');
         Route::patch('{id}','AdminController@editServices');
         Route::delete('{id}','AdminController@deleteServices');
+    });
+    
+    // Basement routes.
+    Route::group(['prefix' => 'basement'], function () {
+        Route::get('/', 'AdminController@showBasement');
+        Route::post('/', 'AdminController@saveBasement');
+    });
+    
+    // Blog routes.
+    Route::group(['prefix' => 'blog'], function () {
+        Route::get('/', 'AdminController@showBlog');
+    });
+    
+    // Contact routes.
+    Route::group(['prefix' => 'contact'], function () {
+        Route::get('/', 'AdminController@showContact');
     });
 });

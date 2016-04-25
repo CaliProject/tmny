@@ -196,6 +196,7 @@ class Configuration extends Model {
         self::basement([
             'title'   => '时令基地',
             'caption' => '',
+            'content' => ''
         ]);
 
         self::blog([

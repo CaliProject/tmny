@@ -1071,7 +1071,7 @@ input.button:hover {
 
 #nostalgia-tab-icon {
     background: url("/images/logo.png") no-repeat;
-    background-size: 210px 210px;
+    background-size: 235px 210px;
 }
 
 /******************************************************************/
@@ -1154,4 +1154,8 @@ input.button:hover {
 .qrcode-wrapper img {
     max-width: 120px;
     max-height: 120px;
+}
+
+.basement-content img {
+    max-width: 100%;
 }

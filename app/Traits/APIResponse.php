@@ -15,9 +15,10 @@ trait APIResponse {
      */
     protected function successResponse($attributes = [], $to = null)
     {
-        return request()->ajax() ?
-            $this->ajaxSuccessResponse($attributes) :
-            is_null($to) ? redirect()->back()->with($this->ajaxSuccessResponse($attributes)) :
+        if (request()->ajax())
+            return $this->ajaxSuccessResponse($attributes);
+
+        return is_null($to) ? redirect()->back()->with($this->ajaxSuccessResponse($attributes)) :
                 redirect($to)->with($this->ajaxSuccessResponse($attributes));
     }
 
@@ -32,9 +33,10 @@ trait APIResponse {
      */
     protected function errorResponse($attributes = [], $to = null)
     {
-        return request()->ajax() ?
-            $this->ajaxErrorResponse($attributes) :
-            is_null($to) ? redirect()->back()->with($this->ajaxErrorResponse($attributes)) :
+        if (request()->ajax())
+            return $this->ajaxErrorResponse($attributes);
+
+        return is_null($to) ? redirect()->back()->with($this->ajaxErrorResponse($attributes)) :
                 redirect($to)->with($this->ajaxErrorResponse($attributes));
     }
 
@@ -49,7 +51,7 @@ trait APIResponse {
     protected function ajaxSuccessResponse($attributes)
     {
         return is_string($attributes) ? [
-            'status'  => 'success',
+            'status' => 'success',
             'message' => $attributes
         ] : array_merge(
             ['status' => 'success'],
@@ -68,7 +70,7 @@ trait APIResponse {
     protected function ajaxErrorResponse($attributes)
     {
         return is_string($attributes) ? [
-            'status'  => 'success',
+            'status' => 'success',
             'message' => $attributes
         ] : array_merge(
             ['status' => 'error'],

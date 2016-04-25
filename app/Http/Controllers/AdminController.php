@@ -162,7 +162,6 @@ class AdminController extends Controller {
     }
 
 
-
     /**
      * Edit about.
      *
@@ -213,8 +212,8 @@ class AdminController extends Controller {
     public function addAbout(Request $request)
     {
         $this->validate($request, [
-            'title'  => 'required',
-            'body' => 'required',
+            'title' => 'required',
+            'body'  => 'required',
         ]);
 
         $abouts = Configuration::about();
@@ -243,24 +242,24 @@ class AdminController extends Controller {
      */
     public function getServicesHeader()
     {
-        return $this->interpolateObj(['title' => Configuration::services()->title,'caption' => Configuration::services()->caption]);
+        return $this->interpolateObj(['title' => Configuration::services()->title, 'caption' => Configuration::services()->caption]);
     }
 
     /**
      * Update services data
      * 修改services的数据
      *
-     * @param $request
+     * @param      $request
      * @param null $id
      * @return array
      */
-    public function updateServices($request,$id = null)
+    public function updateServices($request, $id = null)
     {
         $services = Configuration::services();
-        if(is_null($id)){
+        if (is_null($id)) {
             $services->title = $request->title;
             $services->caption = $request->caption;
-        }else{
+        } else {
             $services->provides[$id]->title = $request->title;
             $services->provides[$id]->body = $request->body;
         }
@@ -277,12 +276,13 @@ class AdminController extends Controller {
      */
     public function showServices($operation)
     {
-        if($operation != 'add'){
+        if ($operation != 'add') {
             $provides = $this->getServicesData();
             $header = $this->getServicesHeader();
-            return view('admin.services.'.$operation,['provides' => $provides,'header' => $header]);
+
+            return view('admin.services.' . $operation, ['provides' => $provides, 'header' => $header]);
         } else {
-            return view('admin.services.'.$operation);
+            return view('admin.services.' . $operation);
         }
     }
 
@@ -291,27 +291,27 @@ class AdminController extends Controller {
      * 编辑services的头部或者provides
      *
      * @param Request $request
-     * @param $id
+     * @param         $id
      * @return array
      */
-    public function editServices(Request $request,$id)
+    public function editServices(Request $request, $id)
     {
-        switch($id){
+        switch ($id) {
             case 'header':
-                $this->validate($request,[
-                    'title' => 'required',
+                $this->validate($request, [
+                    'title'   => 'required',
                     'caption' => 'required'
                 ]);
 
                 return $this->updateServices($request);
                 break;
             default:
-                $this->validate($request,[
+                $this->validate($request, [
                     'title' => 'required',
-                    'body' => 'required'
+                    'body'  => 'required'
                 ]);
 
-                return $this->updateServices($request,$id);
+                return $this->updateServices($request, $id);
                 break;
         }
     }
@@ -325,12 +325,12 @@ class AdminController extends Controller {
      */
     public function addServices(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'title' => 'required',
-            'body' => 'required'
+            'body'  => 'required'
         ]);
         $services = Configuration::services();
-        array_push($services->provides,['title' => $request->input('title'),'body' => $request->input('body')]);
+        array_push($services->provides, ['title' => $request->input('title'), 'body' => $request->input('body')]);
 
         return Configuration::services($services) ? $this->successResponse('添加成功') : $this->errorResponse('添加失败');
     }
@@ -349,5 +349,55 @@ class AdminController extends Controller {
         $services->provides = array_flatten($services->provides);
 
         return Configuration::services($services) ? $this->successResponse('删除成功') : $this->errorResponse('删除失败');
+    }
+
+    /**
+     * Show basement page.
+     *
+     * @return mixed
+     */
+    public function showBasement()
+    {
+        $basement = Configuration::basement();
+
+        return view('admin.basement.home', compact('basement'));
+    }
+
+    /**
+     * Show blog page.
+     *
+     * @return mixed
+     */
+    public function showBlog()
+    {
+        $blog = Configuration::blog();
+
+        return view('admin.blog.home', compact('blog'));
+    }
+
+    /**
+     * SHow contact page.
+     *
+     * @return mixed
+     */
+    public function showContact()
+    {
+        $contact = Configuration::contact();
+
+        return view('admin.contact.home', compact('contact'));
+    }
+
+    /**
+     * Save the basement request.
+     *
+     * @param Request $request
+     * @return array
+     */
+    public function saveBasement(Request $request)
+    {
+        extract($request->except('_token'));
+        Configuration::basement(compact('title', 'caption', 'content'));
+
+        return $this->successResponse('内容修改成功');
     }
 }

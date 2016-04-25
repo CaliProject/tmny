@@ -9,6 +9,9 @@
     <meta name="description" content="天美，让你生活天天美好！">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
+    <link rel="icon" href="/images/logo.png">
+    <link rel="shortcut icon" href="/images/logo.png">
+
     <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/jquery.qtip.css">
     <link rel="stylesheet" href="/css/jquery.jScrollPane.css">

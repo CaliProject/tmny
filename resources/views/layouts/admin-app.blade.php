@@ -7,6 +7,8 @@
 
     <title>@yield('title') - 后台管理 - 天美农业</title>
 
+    <link rel="icon" href="/images/logo.png">
+    <link rel="shortcut icon" href="/images/logo.png">
     <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="//cdn.bootcss.com/summernote/0.8.1/summernote.css" rel="stylesheet">
@@ -62,5 +64,6 @@
             toastr['{{ session('status') == 'error' ? 'error' : 'success' }}']('{{ session('message') }}');
         @endif
     </script>
+    @stack('scripts.footer')
 </body>
 </html>
