@@ -34,6 +34,7 @@
             </div>
         </div>
     </div>
+    @include('admin.partials.site',['url' => 'admin/basement/'])
 @stop
 
 @push('scripts.footer')

@@ -109,4 +109,5 @@
             </div>
         </div>
     @endforeach
+    @include('admin.partials.site',['url' => 'admin/blog/'])
 @endsection

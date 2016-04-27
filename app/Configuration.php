@@ -252,5 +252,6 @@ class Configuration extends Model {
                 'background' => '/images/6.jpg',
             ],
         ]);
+
     }
 }

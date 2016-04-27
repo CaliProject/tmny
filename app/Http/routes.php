@@ -51,6 +51,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::group(['prefix' => 'basement'], function () {
         Route::get('/', 'AdminController@showBasement');
         Route::post('/', 'AdminController@saveBasement');
+        Route::patch('{operation}','AdminController@editBasement');
     });
     
     // Blog routes.
