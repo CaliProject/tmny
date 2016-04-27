@@ -72,28 +72,6 @@ class AdminController extends Controller {
     }
 
     /**
-     * Get about data.
-     * 获取about的数据
-     *
-     * @return mixed
-     */
-    public function getAboutData()
-    {
-        return Configuration::about()->sections;
-    }
-
-    /**
-     * Get about header.
-     * 获取about的头部.
-     *
-     * @return array
-     */
-    public function getAboutHeader()
-    {
-        return $this->interpolateObj(['title' => Configuration::about()->title, 'caption' => Configuration::about()->caption]);
-    }
-
-    /**
      * Update the data of the about
      * 更新about的data数据
      *
@@ -102,16 +80,12 @@ class AdminController extends Controller {
      * @return mixed
      */
 
-    public function updateAbout($request, $id = null)
+    public function updateAbout(Request $request)
     {
         $about = Configuration::about();
-        if (is_null($id)) {
-            $about->title = $request->title;
-            $about->caption = $request->caption;
-        } else {
-            $about->sections[$id]->title = $request->title;
-            $about->sections[$id]->body = $request->body;
-        }
+        $about->title = $request->title;
+        $about->caption = $request->caption;
+        $about->content = $request->input('content');
 
         return Configuration::about($about);
     }
@@ -123,126 +97,38 @@ class AdminController extends Controller {
      */
     public function showAbout()
     {
-        $abouts = $this->getAboutData();
-        $aboutHeader = $this->getAboutHeader();
+        $about = Configuration::about();
 
-        return view('admin.about.home', ['abouts' => $abouts, 'header' => $aboutHeader]);
+        return view('admin.about.home', compact('about'));
     }
 
     /**
      * Show edit page for about.
      *
-     * @param $id
      * @return mixed
      */
     public function showEditAbout()
     {
-        $abouts = $this->getAboutData();
-        $header = $this->getAboutHeader();
+        $about = Configuration::about();
 
-        return view('admin.about.edit', ['abouts' => $abouts, 'header' => $header]);
-    }
-
-    /**
-     * Delete the about section.
-     *
-     * @param $id
-     * @return mixed
-     */
-    public function deleteAbout($id)
-    {
-        $abouts = Configuration::about();
-        unset($abouts->sections[intval($id)]);
-        $abouts->sections = array_flatten($abouts->sections);
-
-        return Configuration::about($abouts) ? $this->successResponse([
-            'message' => '删除成功',
-        ]) : $this->errorResponse([
-            'message' => '删除失败',
-        ]);
+        return view('admin.about.edit', compact('about'));
     }
 
     /**
      * Edit about.
      *
      * @param Request $request
-     * @param         $id
      * @return array|mixed
      */
-    public function editAbout(Request $request, $id)
-    {
-        switch ($id) {
-            case 'header':
-                $this->validate($request, [
-                    'title'   => 'required',
-                    'caption' => 'required',
-                ]);
-
-                return $this->updateAbout($request) ?
-                    $this->successResponse('修改成功') : $this->errorResponse('修改失败');
-                break;
-            default:
-                $this->validate($request, [
-                    'title' => 'required',
-                    'body'  => 'required',
-                ]);
-
-                return $this->updateAbout($request, $id) ?
-                    $this->successResponse('修改成功') : $this->errorResponse('修改失败');
-                break;
-        }
-    }
-
-    /**
-     * Show add about page.
-     *
-     * @return mixed
-     */
-    public function showAddAbout()
-    {
-        return view('admin.about.add');
-    }
-
-    /**
-     * Add an about.
-     *
-     * @param Request $request
-     * @return mixed
-     */
-    public function addAbout(Request $request)
+    public function editAbout(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required',
-            'body'  => 'required',
+            'title'   => 'required',
+            'caption' => 'required',
         ]);
 
-        $abouts = Configuration::about();
-        array_push($abouts->sections, ["title" => $request->input('title'), "body" => $request->input('body')]);
-
-        return Configuration::about($abouts) ? $this->successResponse('添加成功') : $this->errorResponse('添加失败');
-    }
-
-    /**
-     * Get services data
-     * 获取services的数据
-     *
-     * @return mixed
-     *
-     */
-    public function getServicesData()
-    {
-        return Configuration::services()->provides;
-    }
-
-    /**
-     * Get services header
-     * 获取services的头部信息
-     *
-     * @return mixed
-     */
-    public function getServicesHeader()
-    {
-        return $this->interpolateObj(['title' => Configuration::services()->title, 'caption' => Configuration::services()->caption]);
+        return $this->updateAbout($request) ?
+            $this->successResponse('修改成功') : $this->errorResponse('修改失败');
     }
 
     /**
@@ -250,19 +136,15 @@ class AdminController extends Controller {
      * 修改services的数据
      *
      * @param      $request
-     * @param null $id
      * @return array
      */
-    public function updateServices($request, $id = null)
+    public function updateServices(Request $request)
     {
         $services = Configuration::services();
-        if (is_null($id)) {
-            $services->title = $request->title;
-            $services->caption = $request->caption;
-        } else {
-            $services->provides[$id]->title = $request->title;
-            $services->provides[$id]->body = $request->body;
-        }
+
+        $services->title = $request->title;
+        $services->caption = $request->caption;
+        $services->content = $request->input('content');
 
         return Configuration::services($services) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
     }
@@ -276,14 +158,9 @@ class AdminController extends Controller {
      */
     public function showServices($operation)
     {
-        if ($operation != 'add') {
-            $provides = $this->getServicesData();
-            $header = $this->getServicesHeader();
+        $services = Configuration::services();
 
-            return view('admin.services.' . $operation, ['provides' => $provides, 'header' => $header]);
-        } else {
-            return view('admin.services.' . $operation);
-        }
+        return view('admin.services.' . $operation, compact('services'));
     }
 
     /**
@@ -291,64 +168,16 @@ class AdminController extends Controller {
      * 编辑services的头部或者provides
      *
      * @param Request $request
-     * @param         $id
      * @return array
      */
-    public function editServices(Request $request, $id)
-    {
-        switch ($id) {
-            case 'header':
-                $this->validate($request, [
-                    'title'   => 'required',
-                    'caption' => 'required'
-                ]);
-
-                return $this->updateServices($request);
-                break;
-            default:
-                $this->validate($request, [
-                    'title' => 'required',
-                    'body'  => 'required'
-                ]);
-
-                return $this->updateServices($request, $id);
-                break;
-        }
-    }
-
-    /**
-     * Add a service
-     * 添加services板块
-     *
-     * @param Request $request
-     * @return array
-     */
-    public function addServices(Request $request)
+    public function editServices(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required',
-            'body'  => 'required'
+            'title'   => 'required',
+            'caption' => 'required'
         ]);
-        $services = Configuration::services();
-        array_push($services->provides, ['title' => $request->input('title'), 'body' => $request->input('body')]);
 
-        return Configuration::services($services) ? $this->successResponse('添加成功') : $this->errorResponse('添加失败');
-    }
-
-    /**
-     * Delete a service
-     * 删除services的一个板块
-     *
-     * @param $id
-     * @return array
-     */
-    public function deleteServices($id)
-    {
-        $services = Configuration::services();
-        unset($services->provides[intval($id)]);
-        $services->provides = array_flatten($services->provides);
-
-        return Configuration::services($services) ? $this->successResponse('删除成功') : $this->errorResponse('删除失败');
+        return $this->updateServices($request);
     }
 
     /**

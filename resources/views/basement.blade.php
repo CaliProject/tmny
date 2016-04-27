@@ -7,10 +7,8 @@
     </p>
     <!-- /Header + subtitle -->
 
-    <!-- List -->
     <div class="basement-content">
         {!! $basement->content !!}
     </div>
-    <!-- /List -->
 
 </div>

@@ -18,14 +18,14 @@
                 <h4 class="panel-title">编辑头部</h4>
             </div>
             <div class="panel-body">
-                <form action="{{ url('admin/services/header') }}" method="post" class="form-horizontal" role="form">
+                <form action="{{ url('admin/services/edit') }}" method="post" class="form-horizontal" role="form">
                     {{ csrf_field() }}
                     {{ method_field('patch') }}
                     <div class="form-group{{ $errors->has('title') ? 'has-error' : '' }}">
                         <label for="title" class="col-md-2 control-label">头部标题</label>
                         <div class="col-md-9">
                             <input type="text" class="form-control" id="title" name="title"
-                                   value="{{ $header->title }}">
+                                   value="{{ $services->title }}">
                             @if($errors->has('title'))
                                 <div class="help-block">
                                     <span>{{ $errors->first('title') }}</span>
@@ -37,7 +37,7 @@
                         <label for="caption" class="col-md-2 control-label">头部内容</label>
                         <div class="col-md-9">
                             <textarea name="caption" id="caption" class="form-control" cols="30"
-                                      rows="10">{{ $header->caption }}</textarea>
+                                      rows="10">{{ $services->caption }}</textarea>
                             @if($errors->has('caption'))
                                 <div class="help-block">
                                     <span>{{ $errors->first('caption') }}</span>
@@ -46,18 +46,50 @@
                         </div>
                     </div>
                     <hr>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">内容详情</label>
+                        <div class="col-md-10">
+                            <main editor></main>
+                        </div>
+                    </div>
                     <button type="submit" class="btn btn-primary btn-block">确认修改</button>
                 </form>
             </div>
         </div>
     </div>
-    @foreach($provides as $id => $provide)
-        @include('admin.services.partials.form', [
-            'title' => "板块#" . ($id + 1),
-            'method' => 'PATCH',
-            'url' => url('admin/services/' . $id),
-            'button' => '确定修改',
-            'provide' => $provide
-        ])
-    @endforeach
 @stop
+
+@push('scripts.footer')
+<script>
+    $(function () {
+        setTimeout(function () {
+            @if($services->content !== '')
+            $("[editor]").summernote('code', '{!! addslashes($services->content) !!}');
+            @endif
+        }, 500);
+
+        $("form").on('submit', function (e) {
+            e.preventDefault();
+            var $form = e.target;
+
+            $.ajax({
+                url: $form.action,
+                type: 'PATCH',
+                data: {
+                    _token: $("input[name=_token]").val(),
+                    title: $("input[name=title]").val(),
+                    caption: $("textarea[name=caption]").val(),
+                    content: $("[editor]").summernote('code')
+                },
+                success: function (data) {
+                    if (data.status != 'error')
+                        toastr.success(data.message);
+                    else
+                        toastr.error(data.message);
+
+                }
+            });
+        });
+    });
+</script>
+@endpush

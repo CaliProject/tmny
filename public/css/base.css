@@ -1156,7 +1156,7 @@ input.button:hover {
     max-height: 120px;
 }
 
-.basement-content img {
+.page-content img,.page-content iframe {
     max-width: 100%;
 }
 

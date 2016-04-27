@@ -128,57 +128,15 @@ class Configuration extends Model {
     public static function setupData()
     {
         self::about([
-            'title'    => '关于天美',
-            'caption'  => 'I just love photography, it is my true passion. To me photography is an art of observation.',
-            'sections' => [
-                [
-                    'title' => 'VESTIBULUM ACT',
-                    'body'  => 'Donec eget ultricies sapi. Sed porttitor, mauris ater lobortis facilisis, elit sapie eleifend ligula, et facilisis dolor odio vitae nunc. Phasellus ultricies eliteg.'
-                ],
-                [
-                    'title' => 'IACULIS GRAVIDA',
-                    'body'  => 'Praesent cursus lectus nec turpis luctus molest. Suspendisse ligula orci, hendrerit vitae mattis non, dignissim at nibh. Curabitur feugiat, leo quiset.'
-                ],
-                [
-                    'title' => 'NAM UT ELIT ANTE',
-                    'body'  => 'Vestibulum varius lectus massa, eget sodales era. Nullam in augue magnat, at ultricies lectus. Pellentesque mal consequat lobortis. Maecenas dictu.'
-                ],
-                [
-                    'title' => 'SUSPENDISSE POT',
-                    'body'  => 'Aliquam egestas congue pulvinar. Integer ultricies luctus nisi eu facilisise. A lacus nisi, condimentum ut facilisisu porttitor non nibh. Sed in nunc a er.'
-                ],
-                [
-                    'title' => 'DONEC CONVALLIS',
-                    'body'  => 'Aenean ultricies tortor ve tellus porta facilisis. Nunc sit amet massa in enimm interdum in nec lorem.	Nullam ligula urna, posuere malesuada pulvinarit.'
-                ],
-                [
-                    'title' => 'PROIN CONVALLIS',
-                    'body'  => 'Cras lobortis lacus vel i elementum a volut ipsum fermentum. Nullam aclore at nulla egestas commodo. Nam nec porta ipsum. Mauris et bibendum nu.'
-                ]
-            ]
+            'title'   => '关于天美',
+            'caption' => 'I just love photography, it is my true passion. To me photography is an art of observation.',
+            'content' => ''
         ]);
 
         self::services([
-            'title'    => '产业链条',
-            'caption'  => 'I believe in quality design, attention to detail, creative identity and beautiful content look.',
-            'provides' => [
-                [
-                    'title' => 'PORTRAIT PHOTOGRAPHY',
-                    'body'  => 'Mauris et bibendum nulla. In ultricies, ligula ut fermentum auctor, diam eros hendrerit arcu, et eleifend nulla mauris non diam. Inter eros tortor, interdum quis convallis at, tristique in mi.'
-                ],
-                [
-                    'title' => 'REPORTAGE PHOTOGRAPHY',
-                    'body'  => 'Mauris et est turpis. Phasellus ultricies elit eget odio consectetur condimentum. Curabitur feugiat, leo quis fringilla sollicitudin, nulla quam vestibulum tellus, a porta diam lacus at lectus.'
-                ],
-                [
-                    'title' => 'POSTER ART',
-                    'body'  => 'Donec sagittis tristique eleifend. Cras dolor turpis, auctor eget er auctor id, luctus accumsan tellus. Suspendisse quis molestie nequ. Nulla erat sapien, mollis eu lacinia at, dapibus quis velit.'
-                ],
-                [
-                    'title' => 'WEB DESIGN',
-                    'body'  => 'Etiam varius rhoncus aliquet. Sed venenatis semper rutrum. Done id viverra turpis. Integer in cursus arcu. Nullam eget imperdiet turp. Nullam a leo odio. Vestibulum odio libero, tincidunt in viverra non.'
-                ],
-            ]
+            'title'   => '产业链条',
+            'caption' => 'I believe in quality design, attention to detail, creative identity and beautiful content look.',
+            'content' => ''
         ]);
 
         self::portfolio([
