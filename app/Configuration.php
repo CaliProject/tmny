@@ -228,28 +228,28 @@ class Configuration extends Model {
 
         self::site([
             'about'     => [
-                'keywords'         => '天美农业,天美荔枝',
-                'background-image' => '/images/1.jpg',
+                'keywords'   => '天美农业,天美荔枝',
+                'background' => '/images/1.jpg',
             ],
             'services'  => [
-                'keywords'         => '天美农业,天美荔枝',
-                'background-image' => '/images/2.jpg',
+                'keywords'   => '天美农业,天美荔枝',
+                'background' => '/images/2.jpg',
             ],
             'portfolio' => [
-                'keywords'         => '天美农业,天美荔枝',
-                'background-image' => '/images/3.jpg',
+                'keywords'   => '天美农业,天美荔枝',
+                'background' => '/images/3.jpg',
             ],
             'basement'  => [
-                'keywords'         => '天美农业,天美荔枝',
-                'background-image' => '/images/4.jpg',
+                'keywords'   => '天美农业,天美荔枝',
+                'background' => '/images/4.jpg',
             ],
             'blog'      => [
-                'keywords'         => '天美农业,天美荔枝',
-                'background-image' => '/images/5.jpg',
+                'keywords'   => '天美农业,天美荔枝',
+                'background' => '/images/5.jpg',
             ],
             'contact'   => [
-                'keywords'         => '天美农业,天美荔枝',
-                'background-image' => '/images/6.jpg',
+                'keywords'   => '天美农业,天美荔枝',
+                'background' => '/images/6.jpg',
             ],
         ]);
     }

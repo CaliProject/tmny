@@ -49,6 +49,11 @@
                 "keywords": "{{ $site->portfolio->keywords }}",
                 "description": "{{ $slogan }}"
             },
+            "basement": {
+                "title": "时令基地 - 天美农业",
+                "keywords": "{{ $site->basement->keywords }}",
+                "description": "{{ $slogan }}"
+            },
             "blog": {
                 "title": "新鲜生活 - 天美农业",
                 "keywords": "{{ $site->blog->keywords }}",
@@ -57,11 +62,6 @@
             "contact": {
                 "title": "联系天美 - 天美农业",
                 "keywords": "{{ $site->contact->keywords }}",
-                "description": "{{ $slogan }}"
-            },
-            "basement": {
-                "title": "时令基地 - 天美农业",
-                "keywords": "{{ $site->basement->keywords }}",
                 "description": "{{ $slogan }}"
             }
         };
@@ -264,6 +264,28 @@
 <script src="{{ url('/js/jquery.fancybox-buttons.js') }}"></script>
 <script src="{{ url('/js/script.js') }}"></script>
 <script src="{{ url('/js/nostalgia.js') }}"></script>
+<script>
+    var slide = [
+        {
+            image: '{{ $site->about->background }}',
+        },
+        {
+            image: '{{ $site->services->background }}',
+        },
+        {
+            image: '{{ $site->portfolio->background }}',
+        },
+        {
+            image: '{{ $site->blog->background }}',
+        },
+        {
+            image: '{{ $site->contact->background }}',
+        },
+        {
+            image: '{{ $site->basement->background }}',
+        },
+    ]
+</script>
 <script src="{{ url('/js/main.js') }}"></script>
 <script src="{{ url('/js/contact-form.js') }}"></script>
 
