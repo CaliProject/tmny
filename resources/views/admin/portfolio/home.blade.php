@@ -15,15 +15,15 @@
     <div class="col-md-12">
         <div class="panel panel-success">
             <div class="panel-heading">
-                <h4 class="panel-title">{{ $header->title }}</h4>
+                <h4 class="panel-title">{{ $portfolio->title }}</h4>
             </div>
             <div class="panel-body">
-                {{ $header->caption }}
+                {{ $portfolio->caption }}
             </div>
         </div>
     </div>
-    @foreach($products as $id => $product)
-        <div class="col-md-6">
+    @foreach($portfolio->products as $id => $product)
+        <div class="col-md-3 col-xs-6">
             <div class="panel panel-success">
                 <div class="panel-heading">
                         <h4 class="panel-title">{{ $product->name }}</h4>
@@ -34,6 +34,10 @@
                     </div>
                     <hr>
                     {{ $product->caption }}
+                    <hr>
+                    <div class="text-center">
+                        <img src="{{ url($product->qrcode) }}" alt="二维码" class="img-thumbnail">
+                    </div>
                     <hr>
                     <form action="{{ url('admin/portfolio/'.$id) }}" method="post" class="form-horizontal" role="form">
                         {{ csrf_field() }}

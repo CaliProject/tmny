@@ -236,28 +236,6 @@ class AdminController extends Controller {
         return $this->successResponse('内容修改成功');
     }
 
-    /*
-     * Get portfolio data
-     * 获取portfolio的data数据
-     *
-     * @return mixed
-     */
-    public function getPortfolioData()
-    {
-        return Configuration::portfolio()->products;
-    }
-
-    /**
-     * Get portfolio header
-     * 获取portfolio的头部数据
-     *
-     * @return mixed
-     */
-    public function getPortfolioHeader()
-    {
-        return $this->interpolateObj(['title' => Configuration::portfolio()->title, 'caption' => Configuration::portfolio()->caption]);
-    }
-
     /**
      * Update portfolio data
      * 修改portfolio的数据
@@ -266,20 +244,25 @@ class AdminController extends Controller {
      * @param null $id
      * @return array
      */
-    public function updatePortfolio($request, $id = null)
+    public function updatePortfolio(Request $request, $id = null)
     {
         $portfolio = Configuration::portfolio();
         if (is_null($id)) {
             $portfolio->title = $request->title;
             $portfolio->caption = $request->caption;
         } else {
-            $portfolio->products[$id]->name = $request->name;
-            $portfolio->products[$id]->caption = $request->caption;
-            if (is_null($request->file('image'))) {
-                $portfolio->products[$id]->image = $request->old_image;
-            } else {
+            $portfolio->products[$id]->name = $request->input('name');
+            $portfolio->products[$id]->caption = $request->input('caption');
+            $portfolio->products[$id]->link = $request->input('link', '');
+            
+            if (! is_null($request->file('image'))) {
                 $uri = $this->moveFile($request);
                 $portfolio->products[$id]->image = $uri;
+            }
+            
+            if (! is_null($request->file('qrcode'))) {
+                $qrcode = $this->moveFile($request, 'qrcode');
+                $portfolio->products[$id]->qrcode = $qrcode;
             }
         }
 
@@ -296,10 +279,9 @@ class AdminController extends Controller {
     public function showPortfolio($operation)
     {
         if ($operation != 'add') {
-            $products = $this->getPortfolioData();
-            $header = $this->getPortfolioHeader();
+            $portfolio = Configuration::portfolio();
 
-            return view('admin.portfolio.' . $operation, ['products' => $products, 'header' => $header]);
+            return view('admin.portfolio.' . $operation, compact('portfolio'));
         } else {
             return view('admin.portfolio.' . $operation);
         }
@@ -319,9 +301,16 @@ class AdminController extends Controller {
             'image'   => 'required'
         ]);
         $uri = $this->moveFile($request);
+        $qrcode = $this->moveFile($request, 'qrcode');
 
         $portfolio = Configuration::portfolio();
-        array_push($portfolio->products, ['name' => $request->input('name'), 'caption' => $request->input('caption'), 'image' => $uri]);
+        array_push($portfolio->products, [
+            'name'    => $request->input('name'),
+            'caption' => $request->input('caption'),
+            'image'   => $uri,
+            'link'    => $request->input('link', ''),
+            'qrcode'  => $qrcode
+        ]);
 
         return Configuration::portfolio($portfolio) ? $this->successResponse('添加成功') : $this->errorResponse('添加失败');
     }
@@ -467,9 +456,9 @@ class AdminController extends Controller {
      * @param Request $request
      * @return string
      */
-    protected function moveFile(Request $request)
+    protected function moveFile(Request $request, $name = 'image')
     {
-        $file = $request->file('image');
+        $file = $request->file($name);
         $name = sha1(time() . $file->getClientOriginalName()) . '.' . $file->extension();
         $file->move('uploads', $name);
         $uri = '/uploads/' . $name;
