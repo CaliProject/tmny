@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/haha', 'HomeController@showIndex');
+Route::get('/', 'HomeController@showIndex');
 
 Route::get('login', 'Auth\AuthController@showLoginForm');
 Route::post('login', 'Auth\AuthController@login');
@@ -78,4 +78,3 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('music', 'AdminController@showMusic');
     Route::patch('music', 'AdminController@updateMusic');
 });
-
