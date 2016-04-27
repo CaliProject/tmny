@@ -14,6 +14,7 @@ class HomeController extends Controller
     public function showIndex()
     {
         $slogan = Configuration::contact()->details->slogan;
+        $site = Configuration::site();
         
         return view('home', compact('slogan'));
     }

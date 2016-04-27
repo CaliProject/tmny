@@ -3,7 +3,7 @@
 @section('title','时令产品')
 
 @section('actions')
-    <a href="{{ url('admin/portfolio/add') }}" class="btn btn-primary">添加板块</a>
+    <a href="{{ url('admin/portfolio/add') }}" class="btn btn-primary">添加产品</a>
     <a href="{{ url('admin/portfolio/edit') }}" class="btn btn-primary">编辑</a>
 @stop
 

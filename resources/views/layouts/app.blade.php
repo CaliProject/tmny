@@ -5,7 +5,7 @@
 
     <title>天美农业</title>
 
-    <meta name="keywords" content="天美农业,天美荔枝">
+    <meta name="keywords" content="{{ $site->about->keywords }}">
     <meta name="description" content="{{ $slogan }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -36,38 +36,38 @@
         var config = {
             "about": {
                 "title": "关于天美 - 天美农业",
-                "keywords": "天美农业,天美荔枝",
+                "keywords": "{{ $site->about->keywords }}",
                 "description": "{{ $slogan }}"
             },
             "services": {
                 "title": "产业链条 - 天美农业",
-                "keywords": "天美农业,天美荔枝",
+                "keywords": "{{ $site->services->keywords }}",
                 "description": "{{ $slogan }}"
             },
             "portfolio": {
                 "title": "时令产品 - 天美农业",
-                "keywords": "天美农业,天美荔枝",
+                "keywords": "{{ $site->portfolio->keywords }}",
                 "description": "{{ $slogan }}"
             },
             "blog": {
                 "title": "新鲜生活 - 天美农业",
-                "keywords": "天美农业,天美荔枝",
+                "keywords": "{{ $site->blog->keywords }}",
                 "description": "{{ $slogan }}"
             },
             "contact": {
                 "title": "联系天美 - 天美农业",
-                "keywords": "天美农业,天美荔枝",
+                "keywords": "{{ $site->contact->keywords }}",
                 "description": "{{ $slogan }}"
             },
             "basement": {
                 "title": "时令基地 - 天美农业",
-                "keywords": "天美农业,天美荔枝",
+                "keywords": "{{ $site->basement->keywords }}",
                 "description": "{{ $slogan }}"
             }
         };
         var configDefault = {
             "title": "天美农业",
-            "keywords": "天美农业,天美荔枝",
+            "keywords": "{{ $site->about->keywords }}",
             "description": "{{ $slogan }}"
         };
         var mainURL = '/';

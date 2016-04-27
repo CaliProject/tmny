@@ -40,7 +40,9 @@
 <script>
     $(function () {
         setTimeout(function () {
+            @if($basement->content !== '')
             $("[editor]").summernote('code', '{!! addslashes($basement->content) !!}');
+            @endif
         }, 500);
 
         $("form").on('submit', function (e) {

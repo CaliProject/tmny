@@ -188,7 +188,9 @@ class Configuration extends Model {
                 [
                     'name'    => '产品名',
                     'caption' => '产品简短介绍',
-                    'image'   => '图片地址'
+                    'image'   => '图片地址',
+                    'qrcode'  => '二维码地址',
+                    'link'    => '淘宝链接地址'
                 ]
             ]
         ]);
@@ -202,7 +204,7 @@ class Configuration extends Model {
         self::blog([
             'title'   => '新鲜生活',
             'caption' => '新鲜生活',
-            'posts'    => [
+            'posts'   => [
                 [
                     'title' => 'ALIQUAM VITAE AUGUE NON MI',
                     'time'  => '2016-04-25 00:00:00',
@@ -222,6 +224,33 @@ class Configuration extends Model {
                 'address' => '中国 深圳 宝安 留仙二路 美生创谷科技创新园B1栋306号',
                 'company' => '深圳市天美农业服务有限公司'
             ]
+        ]);
+
+        self::site([
+            'about'     => [
+                'keywords'         => '天美农业,天美荔枝',
+                'background-image' => '/images/1.jpg',
+            ],
+            'services'  => [
+                'keywords'         => '天美农业,天美荔枝',
+                'background-image' => '/images/2.jpg',
+            ],
+            'portfolio' => [
+                'keywords'         => '天美农业,天美荔枝',
+                'background-image' => '/images/3.jpg',
+            ],
+            'basement'  => [
+                'keywords'         => '天美农业,天美荔枝',
+                'background-image' => '/images/4.jpg',
+            ],
+            'blog'      => [
+                'keywords'         => '天美农业,天美荔枝',
+                'background-image' => '/images/5.jpg',
+            ],
+            'contact'   => [
+                'keywords'         => '天美农业,天美荔枝',
+                'background-image' => '/images/6.jpg',
+            ],
         ]);
     }
 }
