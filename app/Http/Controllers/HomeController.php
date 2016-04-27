@@ -16,7 +16,7 @@ class HomeController extends Controller
         $slogan = Configuration::contact()->details->slogan;
         $site = Configuration::site();
         
-        return view('home', compact('slogan'));
+        return view('home', compact('slogan', 'site'));
     }
 
     /**
