@@ -6,19 +6,8 @@
     </p>
     <!-- /Header + subtitle -->
 
-    <!-- List -->
-    <ul class="no-list list-1">
-
-        @foreach($about->sections as $index => $section)
-        <!-- List element -->
-        <li class="{{ $index % 2 === 0 ? 'left' : 'right' }}">
-            <h3>{{ $section->title }}</h3>
-            <p>{{ $section->body }}</p>
-        </li>
-        <!-- /List element -->
-        @endforeach
-
-    </ul>
-    <!-- /List -->
+    <div class="page-content">
+        {!! $about->content !!}
+    </div>
 
 </div>

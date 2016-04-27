@@ -54,6 +54,18 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-md-2 control-label">指向链接:</label>
+                        <div class="col-md-9">
+                            <input type="url" name="link" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="image" class="col-md-2 control-label">二维码:</label>
+                        <div class="col-md-9">
+                            <input type="file" name="qrcode" id="qrcode" accept="image/jpeg,image/gif,image/png,image/jpg">
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <div class="col-md-2 col-md-offset-2">
                             <a href="{{ url('admin/portfolio/home') }}" class="btn btn-danger btn-block">返回</a>
                         </div>

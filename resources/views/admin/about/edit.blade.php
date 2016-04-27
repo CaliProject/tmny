@@ -14,21 +14,28 @@
                 <h4>编辑标题</h4>
             </div>
             <div class="panel-body">
-                <form action="{{ url('admin/about/header') }}" class="form-horizontal" role="form" method="post">
+                <form action="{{ url('admin/about/edit') }}" class="form-horizontal" id="main-form" role="form" method="post">
                     {{ csrf_field() }}
                     {{ method_field('patch') }}
                     <div class="form-group">
                         <label for="title" class="col-md-2 control-label">标题</label>
                         <div class="col-md-10">
                             <input type="text" class="form-control" name="title" id="title"
-                                   value="{{ $header->title }}">
+                                   value="{{ $about->title }}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="caption" class="col-md-2 control-label">标题内容</label>
                         <div class="col-md-10">
                             <textarea class="form-control" name="caption" id="caption"
-                                      rows="5">{{ $header->caption }}</textarea>
+                                      rows="5">{{ $about->caption }}</textarea>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">内容详情</label>
+                        <div class="col-md-10">
+                            <main editor></main>
                         </div>
                     </div>
                     <hr>
@@ -41,48 +48,40 @@
             </div>
         </div>
     </div>
-    @foreach($abouts as $id => $about)
-        <div class="col-md-6 padding-0">
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <h4>板块#{{ $id+1 }}</h4>
-                </div>
-                <div class="panel-body">
-                    <form action="{{ url('admin/about/'.$id) }}" class="form-horizontal" method="post" role="form">
-                        {{ csrf_field() }}
-                        {{ method_field('patch') }}
-                        <div class="form-group{{ $errors->has('title') ? 'has-error' : '' }}">
-                            <label for="title" class="col-md-3 control-label">板块标题</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="title" name="title"
-                                       value="{{ $about->title }}">
-                                @if($errors->has('title'))
-                                    <div class="help-block">
-                                        <span>{{ $errors->first('title') }}</span>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="form-group{{ $errors->has('body') ? 'has-error' : '' }}">
-                            <label for="body" class="col-md-3 control-label">板块内容</label>
-                            <div class="col-md-9">
-                                    <textarea name="body" id="body" class="form-control" cols="30" rows="10">{{ $about->body }}</textarea>
-                                @if($errors->has('body'))
-                                    <div class="help-block">
-                                        <span>{{ $errors->first('body') }}</span>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary btn-block">确认修改</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    @endforeach
+    @include('admin.partials.site',['url' => 'admin/about/'])
 @endsection
+
+@push('scripts.footer')
+<script>
+    $(function () {
+        setTimeout(function () {
+            @if($about->content !== '')
+            $("[editor]").summernote('code', '{!! addslashes($about->content) !!}');
+            @endif
+        }, 500);
+
+        $("#main-form").on('submit', function (e) {
+            e.preventDefault();
+            var $form = e.target;
+
+            $.ajax({
+                url: $form.action,
+                type: 'PATCH',
+                data: {
+                    _token: $("input[name=_token]").val(),
+                    title: $("input[name=title]").val(),
+                    caption: $("textarea[name=caption]").val(),
+                    content: $("[editor]").summernote('code')
+                },
+                success: function (data) {
+                    if (data.status != 'error')
+                        toastr.success(data.message);
+                    else
+                        toastr.error(data.message);
+
+                }
+            });
+        });
+    });
+</script>
+@endpush

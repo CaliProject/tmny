@@ -3,7 +3,6 @@
 @section('title','产业链条')
 
 @section('actions')
-    <a href="{{ url('admin/services/add') }}" class="btn btn-primary">添加板块</a>
     <a href="{{ url('admin/services/edit') }}" class="btn btn-primary">编辑</a>
 @stop
 
@@ -15,29 +14,22 @@
     <div class="col-md-12">
         <div class="panel panel-success">
             <div class="panel-heading">
-                <h4 class="panel-title">{{ $header->title }}</h4>
+                <h4 class="panel-title">{{ $services->title }}</h4>
             </div>
             <div class="panel-body">
-                {{ $header->caption }}
+                {{ $services->caption }}
             </div>
         </div>
     </div>
-    @foreach($provides as $id => $provide)
-        <div class="col-md-12">
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <h4 class="panel-title">{{ $provide->title }}</h4>
-                </div>
-                <div class="panel-body">
-                    {{ $provide->body }}
-                    <hr>
-                    <form action="{{ url('admin/services/'.$id) }}" method="post" class="form-horizontal" role="form">
-                        {{ csrf_field() }}
-                        {{ method_field('delete') }}
-                        <button type="submit" class="btn btn-danger pull-right">删除</button>
-                    </form>
-                </div>
+    <div class="col-md-12">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h4 class="panel-title">页面内容</h4>
+            </div>
+            <div class="panel-body">
+                {!! $services->content !!}
             </div>
         </div>
-    @endforeach
+    </div>
+    @include('admin.partials.showsite')
 @stop

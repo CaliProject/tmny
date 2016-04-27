@@ -10,9 +10,9 @@
                 <div class="form-group{{ $errors->has('keywords') ? 'has-error' : '' }}">
                     <label for="keywords" class="col-md-2 control-label">SEO:</label>
                     <div class="col-md-9">
-                        <select name="keywords[]" id="keywords" multiple="multiple" class="form-control">
+                        <select name="keywords[]" id="keywords" multiple class="form-control">
                             @foreach(explode(',',$site->keywords) as $keywords)
-                                <option value="{{ $keywords }}">{{ $keywords }}</option>
+                                <option value="{{ $keywords }}" selected>{{ $keywords }}</option>
                             @endforeach
                         </select>
                         @if($errors->has('keywords'))
@@ -40,7 +40,7 @@
                 <div class="form-group{{ $errors->has('image') ? 'has-error' : '' }}">
                     <label for="image" class="col-md-2 control-label">上传新的图片</label>
                     <div class="col-md-9">
-                        <input type="file" name="image" id="image" class="form-control">
+                        <input type="file" name="image" id="image" class="form-control" accept="image/jpeg,image/png,image/jpg,image/gif">
                         @if($errors->has('image'))
                             <div class="help-block">
                                 <span>{{ $errors->first('image') }}</span>

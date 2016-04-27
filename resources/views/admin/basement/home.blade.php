@@ -14,7 +14,7 @@
             </div>
             <div class="panel-body">
                 <div class="col-md-12">
-                    <form action="{{ url('admin/basement') }}" method="POST">
+                    <form action="{{ url('admin/basement') }}" method="POST" id="main-form">
                         <div class="form-group">
                             <label for="title" class="control-label">头部标题</label>
                             <input type="text" name="title" class="form-control" value="{{ $basement->title }}" required>
@@ -46,7 +46,7 @@
             @endif
         }, 500);
 
-        $("form").on('submit', function (e) {
+        $("#main-form").on('submit', function (e) {
             e.preventDefault();
             var $form = e.target;
 

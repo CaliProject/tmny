@@ -24,7 +24,7 @@
                     <div class="form-group{{ $errors->has('title') ? 'has-error' : '' }}">
                         <label for="title" class="col-md-2 control-label">标题信息:</label>
                         <div class="col-md-9">
-                            <input type="text" class="form-control" id="title" name="title" value="{{ $header->title }}">
+                            <input type="text" class="form-control" id="title" name="title" value="{{ $portfolio->title }}">
                             @if($errors->has('title'))
                                 <div class="help-block">
                                     <span>{{ $errors->first('title') }}</span>
@@ -35,7 +35,7 @@
                     <div class="form-group{{ $errors->has('caption') ? 'has-error' : '' }}">
                         <label for="caption" class="col-md-2 control-label">标题介绍:</label>
                         <div class="col-md-9">
-                            <textarea name="caption" id="caption" class="form-control" cols="30" rows="10">{{ $header->caption }}</textarea>
+                            <textarea name="caption" id="caption" class="form-control" cols="30" rows="10">{{ $portfolio->caption }}</textarea>
                             @if($errors->has('caption'))
                                 <div class="help-block">
                                     <span>{{ $errors->first('caption') }}</span>
@@ -52,7 +52,7 @@
             </div>
         </div>
     </div>
-    @foreach($products as $id => $product)
+    @foreach($portfolio->products as $id => $product)
         <div class="col-md-6">
             <div class="panel panel-success">
                 <div class="panel-heading">
@@ -93,7 +93,7 @@
                         <div class="form-group{{ $errors->has('image') ? 'has-error' : '' }}">
                             <label for="image" class="col-md-3 control-label">新图片</label>
                             <div class="col-md-9">
-                                <input type="file" name="image" id="image" class="img-thumbnail" accept="image/jpeg,image/gif,image/png,image/jpg">
+                                <input type="file" name="image" id="image" accept="image/jpeg,image/gif,image/png,image/jpg">
                                 @if($errors->has('image'))
                                     <div class="help-block">
                                         <span>{{ $errors->first('image') }}</span>
@@ -101,7 +101,24 @@
                                 @endif
                             </div>
                         </div>
-                        <input type="hidden" name="old_image" value="{{ $product->image }}">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">指向链接</label>
+                            <div class="col-md-9">
+                                <input type="url" name="link" class="form-control" value="{{ $product->link }}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">二维码</label>
+                            <div class="col-md-9">
+                                <img src="{{ url($product->qrcode) }}" alt="二维码" class="img-thumbnail">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">新二维码</label>
+                            <div class="col-md-9">
+                                <input type="file" name="qrcode" accept="image/jpeg,image/gif,image/png,image/jpg">
+                            </div>
+                        </div>
                         <hr>
                         <button type="submit" class="btn btn-primary btn-block">确认修改</button>
                     </form>

@@ -114,5 +114,5 @@
                 </div>
             </div>
     </div>
-    @include('admin.partials.site',['url' => 'admin/contact'])
+    @include('admin.partials.site',['url' => 'admin/contact/'])
 @endsection
