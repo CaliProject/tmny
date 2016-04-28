@@ -66,9 +66,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     // Portfolio route.
     Route::group(['prefix' => 'portfolio'],function () {
         Route::get('{operation}', 'AdminController@showPortfolio');
-        Route::post('add', 'AdminController@addPortfolio');
         Route::patch('{id}', 'AdminController@editPortfolio');
-        Route::delete('{id}', 'AdminController@deletePortfolio');
     });
     
     Route::get('music', 'AdminController@showMusic');

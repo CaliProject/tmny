@@ -2,6 +2,9 @@
 
 @section('title','编辑板块')
 
+@section('actions')
+    <a href="{{ url('admin/about') }}" class="btn btn-danger">返回</a>
+@stop    
 @section('breadcrumb')
     <li><a href="{{ url('admin/about') }}">关于天美</a></li>
     <li class="active">编辑-关于天美</li>

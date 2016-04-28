@@ -142,15 +142,7 @@ class Configuration extends Model {
         self::portfolio([
             'title'    => '时令产品',
             'caption'  => 'Explore this diverse selection of my works. Find the interest in this beautiful collection.',
-            'products' => [
-                [
-                    'name'    => '产品名',
-                    'caption' => '产品简短介绍',
-                    'image'   => '图片地址',
-                    'qrcode'  => '二维码地址',
-                    'link'    => '淘宝链接地址'
-                ]
-            ]
+            'content' => ''
         ]);
 
         self::basement([

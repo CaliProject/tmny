@@ -218,7 +218,7 @@ class AdminController extends Controller {
                     'caption' => 'required'
                 ]);
 
-                return $this->updateServices($request);
+                return $this->updateServices($request,$operation);
             case 'SEO':
                 $this->validate($request,[
                     'keywords' => 'required'
@@ -354,14 +354,16 @@ class AdminController extends Controller {
      * @param null $id
      * @return array
      */
-    public function updatePortfolio(Request $request, $id = null)
+    public function updatePortfolio(Request $request, $id)
     {
         $portfolio = Configuration::portfolio();
         $site = Configuration::site();
-        if (is_null($id)) {
+        if ($id == 'edit') {
             $portfolio->title = $request->title;
             $portfolio->caption = $request->caption;
+            $portfolio->content = $request->input('content');
 
+            return Configuration::portfolio($portfolio);
         } else if($id == 'SEO'){
             $keywords = implode(',',$request->input('keywords'));
             $site->portfolio->keywords = $keywords;
@@ -376,23 +378,7 @@ class AdminController extends Controller {
             }
 
             return Configuration::site($site);
-        } else{
-            $portfolio->products[$id]->name = $request->name;
-            $portfolio->products[$id]->caption = $request->caption;
-            if (is_null($request->file('image'))) {
-                $portfolio->products[$id]->image = $request->old_image;
-            } else {
-                $uri = $this->moveFile($request);
-                $portfolio->products[$id]->image = $uri;
-            }
-            
-            if (! is_null($request->file('qrcode'))) {
-                $qrcode = $this->moveFile($request, 'qrcode');
-                $portfolio->products[$id]->qrcode = $qrcode;
-            }
         }
-
-        return Configuration::portfolio($portfolio);
     }
 
     /**
@@ -453,13 +439,13 @@ class AdminController extends Controller {
     public function editPortfolio(Request $request, $id)
     {
         switch ($id) {
-            case 'header':
+            case 'edit':
                 $this->validate($request, [
                     'title'   => 'required',
                     'caption' => 'required'
                 ]);
 
-                return $this->updatePortfolio($request) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
+                return $this->updatePortfolio($request,$id) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
             case 'SEO':
                 $this->validate($request, [
                     'keywords' => 'required'
@@ -469,13 +455,6 @@ class AdminController extends Controller {
             case 'background':
 
                 return $this->updatePortfolio($request,$id) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
-            default:
-                $this->validate($request, [
-                    'name'    => 'required',
-                    'caption' => 'required',
-                ]);
-
-                return $this->updatePortfolio($request, $id) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
         }
     }
 
