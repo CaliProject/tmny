@@ -44,51 +44,84 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">内容详情</label>
-                        <div class="col-md-10">
-                            <main editor></main>
-                        </div>
-                    </div>
                     <button type="submit" class="btn btn-primary btn-block">确认修改</button>
                 </form>
             </div>
         </div>
     </div>
     @include('admin.partials.site',['url' => 'admin/portfolio/'])
+    @foreach($portfolio->products as $id => $product)
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h4 class="panel-title">板块#{{ $id+1 }}</h4>
+                </div>
+                <div class="panel-body">
+                    <form action="{{ url('admin/portfolio/'.$id) }}" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        {{ method_field('patch') }}
+                        <div class="form-group{{ $errors->has('name') ? 'has-error' : '' }}">
+                            <label for="name" class="col-md-3 control-label">产品名称</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" id="name" name="name" value="{{ $product->name }}">
+                                @if($errors->has('name'))
+                                    <div class="help-block">
+                                        <span>{{ $errors->first('name') }}</span>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('caption') ? 'has-error' : '' }}">
+                            <label for="caption" class="col-md-3 control-label">产品介绍</label>
+                            <div class="col-md-9">
+                                <textarea name="caption" id="caption" class="form-control" cols="30" rows="10">{{ $product->caption }}</textarea>
+                                @if($errors->has('caption'))
+                                    <div class="help-block">
+                                        <span>{{ $errors->first('caption') }}</span>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">产品图片</label>
+                            <div class="col-md-9">
+                                <img src="{{ url($product->image) }}" alt="无法加载产品图片" class="img-thumbnail">
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('image') ? 'has-error' : '' }}">
+                            <label for="image" class="col-md-3 control-label">新图片</label>
+                            <div class="col-md-9">
+                                <input type="file" name="image" id="image" accept="image/jpeg,image/gif,image/png,image/jpg">
+                                @if($errors->has('image'))
+                                    <div class="help-block">
+                                        <span>{{ $errors->first('image') }}</span>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">指向链接</label>
+                            <div class="col-md-9">
+                                <input type="url" name="link" class="form-control" value="{{ $product->link }}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">二维码</label>
+                            <div class="col-md-9">
+                                <img src="{{ url($product->qrcode) }}" alt="二维码" class="img-thumbnail">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">新二维码</label>
+                            <div class="col-md-9">
+                                <input type="file" name="qrcode" accept="image/jpeg,image/gif,image/png,image/jpg">
+                            </div>
+                        </div>
+                        <hr>
+                        <button type="submit" class="btn btn-primary btn-block">确认修改</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endforeach
 @endsection
-
-@push('scripts.footer')
-<script>
-    $(function () {
-        setTimeout(function () {
-            @if($portfolio->content !== '')
-            $("[editor]").summernote('code', '{!! addslashes($portfolio->content) !!}');
-            @endif
-        }, 500);
-
-        $("#main-form").on('submit', function (e) {
-            e.preventDefault();
-            var $form = e.target;
-
-            $.ajax({
-                url: $form.action,
-                type: 'PATCH',
-                data: {
-                    _token: $("input[name=_token]").val(),
-                    title: $("input[name=title]").val(),
-                    caption: $("textarea[name=caption]").val(),
-                    content: $("[editor]").summernote('code')
-                },
-                success: function (data) {
-                    if (data.status != 'error')
-                        toastr.success(data.message);
-                    else
-                        toastr.error(data.message);
-
-                }
-            });
-        });
-    });
-</script>
-@endpush

@@ -378,7 +378,23 @@ class AdminController extends Controller {
             }
 
             return Configuration::site($site);
+        } else{
+            $portfolio->products[$id]->name = $request->name;
+            $portfolio->products[$id]->caption = $request->caption;
+            if (is_null($request->file('image'))) {
+                $portfolio->products[$id]->image = $request->old_image;
+            } else {
+                $uri = $this->moveFile($request);
+                $portfolio->products[$id]->image = $uri;
+            }
+
+            if (! is_null($request->file('qrcode'))) {
+                $qrcode = $this->moveFile($request, 'qrcode');
+                $portfolio->products[$id]->qrcode = $qrcode;
+            }
         }
+        
+        return Configuration::portfolio($portfolio);
     }
 
     /**
@@ -455,6 +471,12 @@ class AdminController extends Controller {
             case 'background':
 
                 return $this->updatePortfolio($request,$id) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
+            default:
+                $this->validate($request, [
+                    'name'    => 'required',
+                    'caption' => 'required',
+                ]);
+                return $this->updatePortfolio($request, $id) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
         }
     }
 
