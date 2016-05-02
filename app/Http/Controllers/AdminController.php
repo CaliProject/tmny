@@ -718,5 +718,18 @@ class AdminController extends Controller {
         }
     }
 
+    /**
+     * Upload implementations.
+     *
+     * @param Request $request
+     * @return array
+     */
+    public function upload(Request $request)
+    {
+        $url = $this->moveFile($request);
 
+        return $this->successResponse([
+            'url' => $url
+        ]);
+    }
 }

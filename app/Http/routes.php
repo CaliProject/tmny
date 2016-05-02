@@ -72,4 +72,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     
     Route::get('music', 'AdminController@showMusic');
     Route::patch('music', 'AdminController@updateMusic');
+    
+    Route::post('upload', 'AdminController@upload');
 });

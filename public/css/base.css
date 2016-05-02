@@ -1156,6 +1156,10 @@ input.button:hover {
     max-height: 120px;
 }
 
+.page-content {
+    overflow-x: hidden;
+}
+
 .page-content img,.page-content iframe {
     max-width: 100%;
 }
@@ -1167,4 +1171,32 @@ input.button:hover {
     border-radius: 8px;
     position: relative;
     top: -10px;
+}
+
+.portfolio-image {
+    position: relative;
+}
+
+.portfolio-image .qr {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+
+.portfolio-image .qr img {
+    width: 70%;
+    left: 15%;
+    top: 150px;
+    border-radius: 5px;
+    opacity: 0;
+    -webkit-transition: all ease-in-out .33s;
+    -moz-transition: all ease-in-out .33s;
+    -ms-transition: all ease-in-out .33s;
+    -o-transition: all ease-in-out .33s;
+    transition: all ease-in-out .33s;
+}
+
+.portfolio-image:hover .qr img {
+    top: 0;
+    opacity: .9;
 }

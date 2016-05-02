@@ -14,6 +14,7 @@
     <link href="//cdn.bootcss.com/summernote/0.8.1/summernote.css" rel="stylesheet">
     <link href="//cdn.bootcss.com/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
     <link href="//cdn.bootcss.com/select2/4.0.2-rc.1/css/select2.min.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/dropzone/4.3.0/min/dropzone.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
@@ -43,6 +44,7 @@
     <script src="//cdn.bootcss.com/summernote/0.8.1/summernote.min.js"></script>
     <script src="//cdn.bootcss.com/summernote/0.8.1/lang/summernote-zh-CN.min.js"></script>
     <script src="//cdn.bootcss.com/select2/4.0.2-rc.1/js/select2.min.js"></script>
+    <script src="//cdn.bootcss.com/dropzone/4.3.0/min/dropzone.min.js"></script>
     <script src="/js/admin.js"></script>
     <script>
         toastr.options = {

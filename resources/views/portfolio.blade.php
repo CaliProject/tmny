@@ -13,9 +13,10 @@
         @foreach($portfolio->products as $i => $product)
                 <!-- List element -->
         <li class="{{ $i % 2 === 0 ? 'left' : 'right' }}">
-            <a href="{{ $product->qrcode }}" class="fancybox-image" rel="gallery-1" style="background: url('{!! $product->image !!}');">
-                {{--<img src="" alt="" style="display: inline;">--}}
-                <span></span>
+            <a href="{{ $product->image }}" class="fancybox-image portfolio-image" rel="gallery-1" style="background: url('{!! $product->image !!}');">
+                <div class="qr">
+                    <img src="{{ $product->qrcode }}" alt="">
+                </div>
             </a>
             <div class="image-list-caption">
                 <a href="{{ $product->link }}" target="_blank" style="height: auto;">

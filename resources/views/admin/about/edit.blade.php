@@ -41,6 +41,11 @@
                             <main editor></main>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-2">
+                            <div id="dropzone" class="dropzone"></div>
+                        </div>
+                    </div>
                     <hr>
                     <div class="form-group">
                         <div class="col-md-12">

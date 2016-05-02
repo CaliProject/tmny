@@ -52,6 +52,11 @@
                             <main editor></main>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-2">
+                            <div id="dropzone" class="dropzone"></div>
+                        </div>
+                    </div>
                     <button type="submit" class="btn btn-primary btn-block">确认修改</button>
                 </form>
             </div>

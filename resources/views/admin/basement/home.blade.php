@@ -27,6 +27,9 @@
                             <main editor></main>
                         </div>
                         <div class="form-group">
+                            <div id="dropzone" class="dropzone"></div>
+                        </div>
+                        <div class="form-group">
                             <button class="btn btn-success btn-block">更新内容</button>
                         </div>
                     </form>
