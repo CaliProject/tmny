@@ -63,6 +63,7 @@ class HomeController extends Controller
     public function showBlog()
     {
         $blog = Configuration::blog();
+        $blog->posts = array_reverse($blog->posts);
 
         return view('blog', compact('blog'));
     }

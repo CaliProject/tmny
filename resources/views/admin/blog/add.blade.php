@@ -18,7 +18,7 @@
                 <h4 class="panel-title">添加图文</h4>
             </div>
             <div class="panel-body">
-                <form action="{{ url('admin/blog/add') }}" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+                <form action="{{ url('admin/blog/add') }}" method="post" class="form-horizontal" role="form" id="main-form">
                     {{ csrf_field() }}
                     <div class="form-group{{ $errors->has('title') ? 'has-error' : '' }}">
                         <label for="title" class="col-md-2 control-label">标题:</label>
@@ -31,28 +31,18 @@
                             @endif
                         </div>
                     </div>
-                    <div class="form-group{{ $errors->has('body') ? 'has-error' : '' }}">
-                        <label for="body" class="col-md-2 control-label">文字描述:</label>
-                        <div class="col-md-9">
-                            <textarea name="body" id="body" class="form-control" cols="30" rows="10">{{ old('body') }}</textarea>
-                            @if($errors->has('body'))
-                                <div class="help-block">
-                                    <span>{{ $errors->first('body') }}</span>
-                                </div>
-                            @endif
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">内容详情</label>
+                        <div class="col-md-10">
+                            <main editor></main>
                         </div>
                     </div>
-                    <div class="form-group{{ $errors->has('image') ? 'has-error' : '' }}">
-                        <label for="image" class="col-md-2 control-label">图片:</label>
-                        <div class="col-md-9">
-                            <input type="file" name="image" id="image" accept="image/jpeg,image/gif,image/png,image/jpg">
-                            @if($errors->has('image'))
-                                <div class="help-block">
-                                    <span>{{ $errors->first('image') }}</span>
-                                </div>
-                            @endif
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-2">
+                            <div id="dropzone" class="dropzone"></div>
                         </div>
                     </div>
+                    <hr>
                     <div class="form-group">
                         <div class="col-md-2 col-md-offset-2">
                             <a href="{{ url('admin/blog/home') }}" class="btn btn-danger btn-block">返回</a>
@@ -66,3 +56,34 @@
         </div>
     </div>
 @endsection
+
+@push('scripts.footer')
+<script>
+    $(function () {
+        $("#main-form").on('submit', function (e) {
+            e.preventDefault();
+            var $form = e.target;
+
+            $.ajax({
+                url: $form.action,
+                type: $form.method,
+                data: {
+                    _token: $("input[name=_token]").val(),
+                    title: $("input[name=title]").val(),
+                    content: $("[editor]").summernote('code')
+                },
+                success: function (data) {
+                    if (data.status != 'error') {
+                        toastr.success(data.message);
+                        setTimeout(function () {
+                            window.location.href = "{{ url('admin/blog/home') }}";
+                        }, 1000);
+                    } else {
+                        toastr.error(data.message);
+                    }
+                }
+            });
+        });
+    });
+</script>
+@endpush

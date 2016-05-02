@@ -21,21 +21,9 @@
             </div>
             <!-- /Post header + date -->
 
-            <!-- Post image -->
-            <div class="blog-list-post-image clear-fix">
-
-                <!-- Image -->
-                <a href="{{ $post->image }}" class="fancybox-image" style="background-image: url('{{ $post->image }}');">
-                    <span></span>
-                </a>
-                <!-- /Image -->
-
-            </div>
-            <!-- /Post image -->
-
             <!-- Post content -->
             <p class="blog-list-post-content clear-fix">
-                {!! $post->body !!}
+                {!! $post->content !!}
             </p>
             <!-- /Post content -->
 

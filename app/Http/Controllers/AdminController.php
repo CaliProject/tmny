@@ -100,7 +100,7 @@ class AdminController extends Controller {
         $about = Configuration::about();
         $site = Configuration::site()->about;
 
-        return view('admin.about.home', compact('about','site'));
+        return view('admin.about.home', compact('about', 'site'));
     }
 
     /**
@@ -112,7 +112,8 @@ class AdminController extends Controller {
     {
         $about = Configuration::about();
         $site = Configuration::site()->about;
-        return view('admin.about.edit', compact('about','site'));
+
+        return view('admin.about.edit', compact('about', 'site'));
     }
 
     /**
@@ -121,28 +122,28 @@ class AdminController extends Controller {
      * @param Request $request
      * @return array|mixed
      */
-    public function editAbout(Request $request,$operation)
+    public function editAbout(Request $request, $operation)
     {
 
-        if($operation == 'edit'){
+        if ($operation == 'edit') {
             $this->validate($request, [
                 'title'   => 'required',
                 'caption' => 'required',
             ]);
 
             return $this->updateAbout($request) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
-        } else if($operation == 'SEO') {
-            $this->validate($request,[
+        } else if ($operation == 'SEO') {
+            $this->validate($request, [
                 'keywords' => 'required'
             ]);
             $site = Configuration::site();
-            $keywords = implode(',',$request->input('keywords'));
+            $keywords = implode(',', $request->input('keywords'));
             $site->about->keywords = $keywords;
 
             return Configuration::site($site) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
         } else {
             $site = Configuration::site();
-            if(is_null($request->file('image'))){
+            if (is_null($request->file('image'))) {
                 $site->about->background = $request->old_image;
             } else {
                 $uri = $this->moveFile($request);
@@ -161,10 +162,10 @@ class AdminController extends Controller {
      * @param      $request
      * @return array
      */
-    public function updateServices(Request $request,$operation)
+    public function updateServices(Request $request, $operation)
     {
         $site = Configuration::site();
-        if($operation == 'edit'){
+        if ($operation == 'edit') {
             $services = Configuration::services();
 
             $services->title = $request->title;
@@ -172,16 +173,18 @@ class AdminController extends Controller {
             $services->content = $request->input('content');
 
             return Configuration::services($services) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
-        } else if($operation == 'SEO'){
-            $keywords = implode(',',$request->input('keywords'));
+        } else if ($operation == 'SEO') {
+            $keywords = implode(',', $request->input('keywords'));
             $site->services->keywords = $keywords;
+
             return Configuration::site($site) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
-        } else if($operation == 'background'){
-            if (is_null($request->file('image'))){
+        } else if ($operation == 'background') {
+            if (is_null($request->file('image'))) {
                 $site->services->background = $request->old_image;
             } else {
                 $site->services->background = $this->moveFile($request);
             }
+
             return Configuration::site($site) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
         }
 
@@ -199,7 +202,7 @@ class AdminController extends Controller {
         $services = Configuration::services();
         $site = Configuration::site()->services;
 
-        return view('admin.services.' . $operation, compact('services','site'));
+        return view('admin.services.' . $operation, compact('services', 'site'));
     }
 
     /**
@@ -209,25 +212,25 @@ class AdminController extends Controller {
      * @param Request $request
      * @return array
      */
-    public function editServices(Request $request,$operation)
+    public function editServices(Request $request, $operation)
     {
-        switch($operation){
+        switch ($operation) {
             case 'edit':
                 $this->validate($request, [
                     'title'   => 'required',
                     'caption' => 'required'
                 ]);
 
-                return $this->updateServices($request,$operation);
+                return $this->updateServices($request, $operation);
             case 'SEO':
-                $this->validate($request,[
+                $this->validate($request, [
                     'keywords' => 'required'
                 ]);
 
-                return $this->updateServices($request,$operation);
+                return $this->updateServices($request, $operation);
             case 'background':
 
-                return $this->updateServices($request,$operation);
+                return $this->updateServices($request, $operation);
         }
 
     }
@@ -242,7 +245,7 @@ class AdminController extends Controller {
         $basement = Configuration::basement();
         $site = Configuration::site()->basement;
 
-        return view('admin.basement.home', compact('basement'),compact('site'));
+        return view('admin.basement.home', compact('basement'), compact('site'));
     }
 
     /**
@@ -256,7 +259,8 @@ class AdminController extends Controller {
         if ($operation != 'add') {
             $blog = Configuration::blog();
             $site = Configuration::site()->blog;
-            return view('admin.blog.' . $operation, compact('blog'),compact('site'));
+
+            return view('admin.blog.' . $operation, compact('blog'), compact('site'));
         }
 
         return view('admin.blog.' . $operation);
@@ -273,7 +277,7 @@ class AdminController extends Controller {
         $header = $this->interpolateObj(['title' => Configuration::contact()->title, 'caption' => Configuration::contact()->caption]);
         $site = Configuration::site()->contact;
 
-        return view('admin.contact.home',['details' => $details,'header' => $header,'site' => $site]);
+        return view('admin.contact.home', ['details' => $details, 'header' => $header, 'site' => $site]);
     }
 
     /**
@@ -296,24 +300,24 @@ class AdminController extends Controller {
      * 修改basement的site
      *
      * @param Request $request
-     * @param $operation
+     * @param         $operation
      * @return array
      */
-    public function editBasement(Request $request,$operation)
+    public function editBasement(Request $request, $operation)
     {
-        switch($operation){
+        switch ($operation) {
             case 'SEO':
-                $this->validate($request,[
+                $this->validate($request, [
                     'keywords' => 'required'
                 ]);
                 $site = Configuration::site();
-                $keywords = implode(',',$request->input('keywords'));
+                $keywords = implode(',', $request->input('keywords'));
                 $site->basement->keywords = $keywords;
 
                 return Configuration::site($site) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
             case 'background':
                 $site = Configuration::site();
-                if (is_null($request->file('image'))){
+                if (is_null($request->file('image'))) {
                     $site->basement->background = $request->old_imgae;
                 } else {
                     $uri = $this->moveFile($request);
@@ -364,13 +368,13 @@ class AdminController extends Controller {
             $portfolio->content = $request->input('content');
 
             return Configuration::portfolio($portfolio);
-        } else if($id == 'SEO'){
-            $keywords = implode(',',$request->input('keywords'));
+        } else if ($id == 'SEO') {
+            $keywords = implode(',', $request->input('keywords'));
             $site->portfolio->keywords = $keywords;
 
             return Configuration::site($site);
-        } else if($id == 'background'){
-            if (is_null($request->file('image'))){
+        } else if ($id == 'background') {
+            if (is_null($request->file('image'))) {
                 $site->portfolio->background = $request->old_imgae;
             } else {
                 $uri = $this->moveFile($request);
@@ -378,7 +382,7 @@ class AdminController extends Controller {
             }
 
             return Configuration::site($site);
-        } else{
+        } else {
             $portfolio->products[$id]->name = $request->name;
             $portfolio->products[$id]->caption = $request->caption;
             if (is_null($request->file('image'))) {
@@ -393,7 +397,7 @@ class AdminController extends Controller {
                 $portfolio->products[$id]->qrcode = $qrcode;
             }
         }
-        
+
         return Configuration::portfolio($portfolio);
     }
 
@@ -411,7 +415,7 @@ class AdminController extends Controller {
             $portfolio = Configuration::portfolio();
             $site = Configuration::site()->portfolio;
 
-            return view('admin.portfolio.' . $operation, compact('portfolio','site'));
+            return view('admin.portfolio.' . $operation, compact('portfolio', 'site'));
         } else {
             return view('admin.portfolio.' . $operation);
         }
@@ -461,21 +465,22 @@ class AdminController extends Controller {
                     'caption' => 'required'
                 ]);
 
-                return $this->updatePortfolio($request,$id) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
+                return $this->updatePortfolio($request, $id) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
             case 'SEO':
                 $this->validate($request, [
                     'keywords' => 'required'
                 ]);
 
-                return $this->updatePortfolio($request,$id) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
+                return $this->updatePortfolio($request, $id) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
             case 'background':
 
-                return $this->updatePortfolio($request,$id) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
+                return $this->updatePortfolio($request, $id) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
             default:
                 $this->validate($request, [
                     'name'    => 'required',
                     'caption' => 'required',
                 ]);
+
                 return $this->updatePortfolio($request, $id) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
         }
     }
@@ -505,17 +510,13 @@ class AdminController extends Controller {
     {
         $this->validate($request, [
             'title' => 'required',
-            'body'  => 'required',
-            'image' => 'required'
         ]);
-        $uri = $this->moveFile($request);
 
         $blog = Configuration::blog();
         array_push($blog->posts, [
-            'title' => $request->input('title'),
-            'body'  => $request->input('body'),
-            'image' => $uri,
-            'time'  => Carbon::now()->toDateTimeString()
+            'title'   => $request->input('title'),
+            'content' => $request->input('content'),
+            'time'    => Carbon::now()->toDateTimeString()
         ]);
 
         return Configuration::blog($blog) ? $this->successResponse('添加成功') : $this->errorResponse('添加失败');
@@ -541,15 +542,14 @@ class AdminController extends Controller {
                     'keywords' => 'required'
                 ]);
 
-                return $this->updateBlog($request,$id);
+                return $this->updateBlog($request, $id);
 
             case 'background':
 
-                return $this->updateBlog($request,$id);
+                return $this->updateBlog($request, $id);
             default:
                 $this->validate($request, [
                     'title' => 'required',
-                    'body'  => 'required',
                 ]);
 
                 return $this->updateBlog($request, $id);
@@ -570,29 +570,14 @@ class AdminController extends Controller {
         if (is_null($id)) {
             $blog->title = $request->title;
             $blog->caption = $request->caption;
-        } else if($id =='SEO') {
-            $keywords = implode(',',$request->input('keywords'));
+        } else if ($id == 'SEO') {
+            $keywords = implode(',', $request->input('keywords'));
             $site->blog->keywords = $keywords;
-
-            return Configuration::site($site) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
-        } else if($id =='background'){
-            if(is_null($request->file('image'))){
-                $site->blog->background = $request->old_image;
-            } else {
-                $uri = $this->moveFile($request);
-                $site->blog->background = $uri;
-            }
 
             return Configuration::site($site) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
         } else {
             $blog->posts[$id]->title = $request->title;
-            $blog->posts[$id]->body = $request->body;
-            if (is_null($request->file('image'))) {
-                $blog->posts[$id]->image = $request->old_image;
-            } else {
-                $uri = $this->moveFile($request);
-                $blog->posts[$id]->image = $uri;
-            }
+            $blog->posts[$id]->content = $request->input('content');
         }
 
         return Configuration::blog($blog) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
@@ -680,17 +665,17 @@ class AdminController extends Controller {
                 return Configuration::contact($contact) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
 
             case 'SEO':
-                $this->validate($request,[
+                $this->validate($request, [
                     'keywords' => 'required'
                 ]);
 
-                $keywords = implode(',',$request->input('keywords'));
+                $keywords = implode(',', $request->input('keywords'));
                 $site->contact->keywords = $keywords;
 
                 return Configuration::site($site) ? $this->successResponse('修改成功') : $this->errorResponse('修改失败');
 
             case 'background':
-                if(is_null($request->file('image'))){
+                if (is_null($request->file('image'))) {
                     $site->contact->background = $request->old_image;
                 } else {
                     $uri = $this->moveFile($request);

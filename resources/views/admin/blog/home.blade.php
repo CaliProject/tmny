@@ -29,11 +29,7 @@
                     <h4 class="panel-title">{{ $post->title }}</h4>
                 </div>
                 <div class="panel-body">
-                    <div class="text-center">
-                        <img src="{{ url($post->image) }}" alt="没有找到图片信息" class="img-thumbnail">
-                    </div>
-                    <hr>
-                    {{ $post->body }}
+                    {!! $post->content !!}
                     <hr>
                     <form action="{{ url('admin/blog/'.$id) }}" method="post" class="form-horizontal" role="form">
                         {{ csrf_field() }}

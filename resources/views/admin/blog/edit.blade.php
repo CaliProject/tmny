@@ -59,49 +59,25 @@
                     <h4 class="panel-title">图文#{{ $id+1 }}</h4>
                 </div>
                 <div class="panel-body">
-                    <form action="{{ url('admin/blog/'.$id) }}" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+                    <form action="{{ url('admin/blog/'.$id) }}" method="post" role="form" id="main-form">
                         {{ csrf_field() }}
                         {{ method_field('patch') }}
                         <div class="form-group{{ $errors->has('title') ? 'has-error' : '' }}">
-                            <label for="title" class="col-md-3 control-label">标题</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" id="title" name="title" value="{{ $post->title }}">
-                                @if($errors->has('title'))
-                                    <div class="help-block">
-                                        <span>{{ $errors->first('title') }}</span>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="form-group{{ $errors->has('body') ? 'has-error' : '' }}">
-                            <label for="body" class="col-md-3 control-label">详情文字</label>
-                            <div class="col-md-9">
-                                <textarea name="body" id="body" class="form-control" cols="30" rows="10">{{ $post->body }}</textarea>
-                                @if($errors->has('title'))
-                                    <div class="help-block">
-                                        <span>{{ $errors->first('title') }}</span>
-                                    </div>
-                                @endif
-                            </div>
+                            <label for="title" class="control-label">标题</label>
+                            <input type="text" class="form-control" id="title" name="title" value="{{ $post->title }}">
+                            @if($errors->has('title'))
+                                <div class="help-block">
+                                    <span>{{ $errors->first('title') }}</span>
+                                </div>
+                            @endif
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label">图片</label>
-                            <div class="col-md-9">
-                                <img src="{{ url($post->image) }}" alt="无法加载产品图片" class="img-thumbnail">
-                            </div>
+                            <label class="control-label">内容详情</label>
+                            <main id="post-{{ $id }}" editor></main>
                         </div>
-                        <div class="form-group{{ $errors->has('image') ? 'has-error' : '' }}">
-                            <label for="image" class="col-md-3 control-label">新图片</label>
-                            <div class="col-md-9">
-                                <input type="file" name="image" id="image" class="img-thumbnail" accept="image/jpeg,image/gif,image/png,image/jpg">
-                                @if($errors->has('image'))
-                                    <div class="help-block">
-                                        <span>{{ $errors->first('image') }}</span>
-                                    </div>
-                                @endif
-                            </div>
+                        <div class="form-group">
+                            <div id="dropzone" class="dropzone"></div>
                         </div>
-                        <input type="hidden" name="old_image" value="{{ $post->image }}">
                         <hr>
                         <button type="submit" class="btn btn-primary btn-block">确认修改</button>
                     </form>
@@ -111,3 +87,42 @@
     @endforeach
     @include('admin.partials.site',['url' => 'admin/blog/'])
 @endsection
+
+@push('scripts.footer')
+<script>
+    $(function () {
+        @foreach($blog->posts as $id => $post)
+        setTimeout(function () {
+            @if($post->content !== '')
+            $("#post-{{ $id }}[editor]").summernote('code', '{!! addslashes($post->content) !!}');
+            @endif
+        }, 350);
+        @endforeach
+
+        $("#main-form").each(function () {
+            $(this).on('submit', function (e) {
+                e.preventDefault();
+                var $form = e.target;
+
+                $.ajax({
+                    url: $form.action,
+                    type: 'PATCH',
+                    data: {
+                        _token: $("input[name=_token]").val(),
+                        title: $("input[name=title]").val(),
+                        caption: $("textarea[name=caption]").val(),
+                        content: $($($form).find("[editor]")[0]).summernote('code')
+                    },
+                    success: function (data) {
+                        if (data.status != 'error')
+                            toastr.success(data.message);
+                        else
+                            toastr.error(data.message);
+
+                    }
+                });
+            });
+        });
+    });
+</script>
+@endpush
